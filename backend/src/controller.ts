@@ -1,8 +1,17 @@
 import { Request, Response } from "express";
+import zod from "zod";
 
-const handleUser = (req: Request, res: Response) => {};
+const signupSchema = zod.object({
+  firstName: zod.string().min(1, "Required"),
+  lastName: zod.string(),
+  email: zod.string().email("Invalid email"),
+  password: zod.string().min(6, "Must be atleast 6 characters"),
+});
 
-// const handleSignIn = (req: Request, res: Response) => {};
+const handleSignUp = (req: Request, res: Response) => {
+  const { firstName, lastName, email, password } = req.body;
+};
 
-export { handleUser };
-// export { handleSignUp, handleSignIn };
+const handleSignIn = (req: Request, res: Response) => {};
+
+export { handleSignUp, handleSignIn };
