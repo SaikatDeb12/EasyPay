@@ -15,5 +15,5 @@ connectdb();
 app.use("api/v1/", mainRouter);
 
 app.listen(process.env.PORT, () =>
-  console.log("Server started at: ", process.env.PORT)
+  console.log("Server started at PORT ", process.env.PORT)
 );

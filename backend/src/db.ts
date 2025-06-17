@@ -1,4 +1,6 @@
+import { NextFunction } from "express";
 import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
 
 const schema = new Schema({
   firstName: {
@@ -20,5 +22,4 @@ const schema = new Schema({
   },
 });
 
-const UserModel = model("Users", schema);
-export { schema, UserModel };
+export const UserModel = model("Users", schema);
