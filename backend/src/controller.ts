@@ -16,13 +16,13 @@ const signUpSchema = zod.object({
 const handleSignUp = async (req: Request, res: Response) => {
   try {
     const body = req.body;
-    const { firstName, lastName, email, password } = body;
-    const success = signUpSchema.safeParse(body);
+    const { success, data, error } = signUpSchema.safeParse(body);
     if (!success) {
-      res.status(400).json({ msg: "Incorrect input" });
+      res.status(400).json({ msg: "Incorrect input", error });
       return;
     }
 
+    const { firstName, lastName, email, password } = data;
     const user = await UserModel.findOne({ email });
     if (user) {
       res.status(400).json({ msg: "Email already registered" });
@@ -42,7 +42,7 @@ const handleSignUp = async (req: Request, res: Response) => {
       process.env.SECRET_JWT_KEY as string
     );
     res.status(200).json({ msg: "User created successfully", token: token });
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({ msg: "Server error" });
   }
 };
@@ -55,16 +55,22 @@ const signInSchema = zod.object({
 const handleSignIn = async (req: Request, res: Response) => {
   try {
     const body = req.body;
-    const success = signInSchema.safeParse(body);
+    const { success, data, error } = signInSchema.safeParse(body);
     if (!success) {
+      res.status(400).json({ msg: "Invalid credentials", error });
+      return;
+    }
+
+    const { email, password } = data;
+    const user = await UserModel.findOne({ email });
+    if (!user) {
       res.status(400).json({ msg: "Invalid credentials" });
       return;
     }
 
-    const { email, password } = body;
-    const user = await UserModel.findOne({ email });
-    if (!user) {
-      res.status(400).json({ msg: "Invalid credentials" });
+    const result = await bcrypt.compare(password, user.password);
+    if (!result) {
+      res.status(400).json({ msg: "Invalid password" });
       return;
     }
 
@@ -74,7 +80,7 @@ const handleSignIn = async (req: Request, res: Response) => {
     );
 
     res.status(200).json({ msg: "Login successful", token: token });
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({ msg: "Server error" });
   }
 };

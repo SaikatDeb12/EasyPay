@@ -1,6 +1,4 @@
-import { NextFunction } from "express";
 import { Schema, model } from "mongoose";
-import bcrypt from "bcrypt";
 
 const schema = new Schema({
   firstName: {
