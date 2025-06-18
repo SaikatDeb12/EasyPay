@@ -85,4 +85,42 @@ const handleSignIn = async (req: Request, res: Response) => {
   }
 };
 
-export { handleSignUp, handleSignIn };
+const updateSchema = zod.object({
+  firstName: zod.string().min(1).optional(),
+  lastName: zod.string().min(1).optional(),
+  password: zod.string().min(6).optional(),
+});
+
+interface AuthRequest extends Request {
+  userId: string;
+}
+
+const handleUpdate = async (req: AuthRequest, res: Response) => {
+  try {
+    const body = req.body;
+    const { success, data, error } = updateSchema.safeParse(body);
+
+    if (!success) {
+      return res
+        .status(411)
+        .json({ msg: "Error while updating ", error: error });
+    }
+
+    const { firstName, lastName, password } = data;
+    const newData: Record<string, string> = {};
+    if (firstName) newData.firstName = firstName;
+    if (lastName) newData.lastName = lastName;
+    if (password) {
+      //need to hash the new password:
+      newData.password = await bcrypt.hash(password, 10);
+    }
+
+    await UserModel.updateOne({ _id: req.userId }, { $set: newData });
+
+    res.status(200).json({ msg: "Update successful" });
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export { handleSignUp, handleSignIn, handleUpdate };
