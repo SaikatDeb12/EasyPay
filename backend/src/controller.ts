@@ -68,8 +68,8 @@ const handleSignIn = async (req: Request, res: Response) => {
       return;
     }
 
-    const result = await bcrypt.compare(password, user.password);
-    if (!result) {
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
       res.status(400).json({ msg: "Invalid password" });
       return;
     }
