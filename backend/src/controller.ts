@@ -163,4 +163,53 @@ const transactionSchema = zod.object({
   amount: zod.number().min(1),
 });
 
-export { handleSignUp, handleSignIn, handleUpdate, displayUser, getBalance };
+const handleTransfer = async (req: AuthRequest, res: Response) => {
+  try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    const body = req.body;
+    const { success, data, error } = transactionSchema.safeParse(body);
+    if (!success) {
+      return res.status(400).json({ msg: "Invalid input" });
+    }
+
+    const { to, amount } = data;
+    const user = await AccountModel.findOne({ userId: req.userId }).session(
+      session
+    );
+    if (!user || (user.balance as number) < amount) {
+      await session.abortTransaction();
+      return res.status(400).json({ msg: "Insufficient balance" });
+    }
+
+    const receiver = UserModel.findOne({ userId: to }).session(session);
+    if (!receiver) {
+      await session.abortTransaction();
+      return res.status(400).json({ msg: "Invalid account" });
+    }
+
+    //transaction:
+    await AccountModel.updateOne(
+      { userId: req.userId },
+      { $inc: { balance: -amount } }
+    ).session(session);
+    await AccountModel.updateOne(
+      { userId: to },
+      { $inc: { balance: amount } }
+    ).session(session);
+
+    await session.commitTransaction();
+    res.status(200).json({ msg: "Transaction successful" });
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export {
+  handleSignUp,
+  handleSignIn,
+  handleUpdate,
+  displayUser,
+  getBalance,
+  handleTransfer,
+};
