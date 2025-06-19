@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import { MongoClient } from "mongodb";
+import { Auth, MongoClient } from "mongodb";
 import zod from "zod";
 import bcrypt from "bcrypt";
-import { UserModel } from "./db";
-import jwt from "jsonwebtoken";
+import { AccountModel, UserModel } from "./db";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 
 const signUpSchema = zod.object({
@@ -36,6 +37,12 @@ const handleSignUp = async (req: Request, res: Response) => {
       lastName: lastName,
       email: email,
       password: hashedPassword,
+    });
+
+    //giving the user some random amount in the account:
+    AccountModel.create({
+      userId: dbUser._id,
+      balance: Math.random() * 1000 + 1,
     });
 
     const token = jwt.sign(
@@ -146,4 +153,14 @@ const displayUser = async (req: Request, res: Response) => {
   }
 };
 
-export { handleSignUp, handleSignIn, handleUpdate, displayUser };
+const getBalance = async (req: AuthRequest, res: Response) => {
+  const account = await AccountModel.findOne({ userId: req.userId });
+  res.send(200).json({ msg: `Balance Rs. ${account?.balance}` });
+};
+
+const transactionSchema = zod.object({
+  to: zod.string().min(1),
+  amount: zod.number().min(1),
+});
+
+export { handleSignUp, handleSignIn, handleUpdate, displayUser, getBalance };
