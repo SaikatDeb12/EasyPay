@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const schema = new Schema({
+const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -20,4 +20,19 @@ const schema = new Schema({
   },
 });
 
-export const UserModel = model("Users", schema);
+const accountSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "Users",
+    require: true,
+  },
+  balance: {
+    type: Number,
+    require: true,
+  },
+});
+
+const UserModel = model("Users", userSchema);
+const AccountModel = model("Accounts", accountSchema);
+
+export { UserModel, AccountModel };

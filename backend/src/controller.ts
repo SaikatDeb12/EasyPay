@@ -129,6 +129,9 @@ const displayUser = async (req: Request, res: Response) => {
     const client = new MongoClient(process.env.MONGODB_URL as string);
     const database = client.db("user");
     const collection = database.collection("users");
+    // const query = {
+    //   $or: [{ firstName: { $eq: "" } }, { lastName: { $eq: "" } }],
+    // };
     const users = await collection.find().toArray();
     res.status(200).json(
       users.map((user) => ({
