@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { MongoClient } from "mongodb";
 import zod from "zod";
 import bcrypt from "bcrypt";
 import { UserModel } from "./db";
@@ -123,4 +124,23 @@ const handleUpdate = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export { handleSignUp, handleSignIn, handleUpdate };
+const displayUser = async (req: Request, res: Response) => {
+  try {
+    const client = new MongoClient(process.env.MONGODB_URL as string);
+    const database = client.db("user");
+    const collection = database.collection("users");
+    const users = await collection.find().toArray();
+    res.status(200).json(
+      users.map((user) => ({
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      }))
+    );
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+export { handleSignUp, handleSignIn, handleUpdate, displayUser };
