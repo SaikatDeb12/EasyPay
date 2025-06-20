@@ -1,3 +1,4 @@
+import { useState, type FormEventHandler, type SyntheticEvent } from "react";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import Heading from "../components/Heading";
@@ -7,6 +8,26 @@ import { useNavigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
+  type Schema = {
+    name: string;
+    email: string;
+    password: string;
+  };
+
+  const [value, setValue] = useState<Schema>({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue({ ...value, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(value);
+  };
   return (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
       <div className="rounded-lg bg-white w-90 p-2 h-max px-4 pb-10 flex flex-col justify-center items-center">
@@ -14,15 +35,23 @@ const SignIn: React.FC = () => {
           <Heading label={"Sign In"} />
           <SubHeading />
         </div>
-        <div className="items-start">
+        <form className="items-start" onSubmit={(event) => handleSubmit(event)}>
           <InputBox
+            name="email"
             label="Email"
             placeholder="John.Doe@gmail.com"
             type="text"
+            onChange={handleChange}
           />
-          <InputBox label="Password" placeholder="******" type="password" />
+          <InputBox
+            name="password"
+            label="Password"
+            placeholder="******"
+            type="password"
+            onChange={handleChange}
+          />
           <Button text="Sign In" />
-        </div>
+        </form>
         <Footer
           msg="Don't have an account? "
           redirect="SignUp"
