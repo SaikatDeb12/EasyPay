@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
+import dotenv from "dotenv";
+import { UserModel } from "./db";
+dotenv.config();
 
 interface AuthRequest extends Request {
   userId?: string;
@@ -15,7 +18,7 @@ const authMiddleware = (
   next: NextFunction
 ) => {
   const authHeader = req.header("Authorization");
-  const token = authHeader?.replace("bearer ", "");
+  const token = authHeader?.split(" ")[1];
   if (!token) {
     return res.status(400).json({ msg: "No token, access denied!" });
   }
@@ -23,8 +26,9 @@ const authMiddleware = (
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET as string
+      process.env.SECRET_JWT_KEY as string
     ) as JwtPayload;
+
     req.userId = decoded.userId;
     next();
   } catch (err) {

@@ -40,7 +40,7 @@ const handleSignUp = async (req: Request, res: Response) => {
     });
 
     //giving the user some random amount in the account:
-    AccountModel.create({
+    await AccountModel.create({
       userId: dbUser._id,
       balance: Math.random() * 1000 + 1,
     });
@@ -123,7 +123,7 @@ const handleUpdate = async (req: AuthRequest, res: Response) => {
       newData.password = await bcrypt.hash(password, 10);
     }
 
-    await UserModel.updateOne({ _id: req.userId }, { $set: newData });
+    await UserModel.updateOne({ userId: req.userId }, { $set: newData });
 
     res.status(200).json({ msg: "Update successful" });
   } catch (err) {
@@ -154,8 +154,13 @@ const displayUser = async (req: Request, res: Response) => {
 };
 
 const getBalance = async (req: AuthRequest, res: Response) => {
-  const account = await AccountModel.findOne({ userId: req.userId });
-  res.send(200).json({ msg: `Balance Rs. ${account?.balance}` });
+  console.log("userId: ", req.userId);
+  try {
+    const account = await AccountModel.findOne({ userId: req.userId });
+    res.status(200).json({ msg: `Balance Rs. ${account?.balance}` });
+  } catch (err) {
+    res.status(400).json({ msg: "Account not found" });
+  }
 };
 
 const transactionSchema = zod.object({
