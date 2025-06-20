@@ -5,11 +5,12 @@ interface PropType {
 }
 const InputBox: React.FC<PropType> = ({ label, placeholder, type }) => {
   return (
-    <div className="my-4">
+    <div className="my-2">
       <label className="font-semibold">{label}</label>
       <input
         className="w-full my-1 rounded-lg border border-gray-500 px-2 py-1"
         placeholder={placeholder}
+        type={type}
       />
     </div>
   );
