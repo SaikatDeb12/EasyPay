@@ -154,7 +154,6 @@ const displayUser = async (req: Request, res: Response) => {
 };
 
 const getBalance = async (req: AuthRequest, res: Response) => {
-  console.log("userId: ", req.userId);
   try {
     const account = await AccountModel.findOne({ userId: req.userId });
     res.status(200).json({ msg: `Balance Rs. ${account?.balance}` });
@@ -173,16 +172,16 @@ const handleTransfer = async (req: AuthRequest, res: Response) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     const body = req.body;
-    const { success, data, error } = transactionSchema.safeParse(body);
-    if (!success) {
-      return res.status(400).json({ msg: "Invalid input" });
-    }
+    // const { success, data, error } = transactionSchema.safeParse(body);
+    // if (!success) {
+    //   return res.status(400).json({ msg: "Invalid input", error: error });
+    // }
 
-    const { to, amount } = data;
+    const { to, amount } = body;
     const user = await AccountModel.findOne({ userId: req.userId }).session(
       session
     );
-    if (!user || (user.balance as number) < amount) {
+    if (!user || (user.balance as number) < Number(amount)) {
       await session.abortTransaction();
       return res.status(400).json({ msg: "Insufficient balance" });
     }
@@ -196,11 +195,11 @@ const handleTransfer = async (req: AuthRequest, res: Response) => {
     //transaction:
     await AccountModel.updateOne(
       { userId: req.userId },
-      { $inc: { balance: -amount } }
+      { $inc: { balance: -Number(amount) } }
     ).session(session);
     await AccountModel.updateOne(
       { userId: to },
-      { $inc: { balance: amount } }
+      { $inc: { balance: Number(amount) } }
     ).session(session);
 
     await session.commitTransaction();
