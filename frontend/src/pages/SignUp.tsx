@@ -5,6 +5,7 @@ import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import { useState } from "react";
+import axios from "axios";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -29,9 +30,16 @@ const SignUp: React.FC = () => {
     setValue({ ...value, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(value);
+    const res = await axios.post(
+      (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signup",
+      value
+    );
+    const token = res.data.token;
+    console.log(res.data.msg);
+    navigate("/signin");
   };
 
   return (

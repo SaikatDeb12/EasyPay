@@ -1,10 +1,11 @@
-import { useState, type FormEventHandler, type SyntheticEvent } from "react";
+import { useState } from "react";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -24,9 +25,16 @@ const SignIn: React.FC = () => {
     setValue({ ...value, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(value);
+    const res = await axios.post(
+      (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signin",
+      value
+    );
+    const token = res.data.token;
+    console.log(res.data.msg);
+    localStorage.setItem("token", token);
   };
   return (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
