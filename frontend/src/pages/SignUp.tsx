@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
       <div className="rounded-lg bg-white w-90 p-2 h-max px-4 pb-10 flex flex-col justify-center items-center">
@@ -23,7 +25,11 @@ const SignUp = () => {
           <InputBox label="Password" placeholder="******" type="password" />
           <Button text="Sign Up" />
         </div>
-        <Footer msg="Already have an account? " redirect="SignIn" />
+        <Footer
+          msg="Already have an account? "
+          redirect="SignIn"
+          onClick={() => navigate("/signin")}
+        />
       </div>
     </div>
   );

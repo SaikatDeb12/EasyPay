@@ -3,12 +3,16 @@ import type React from "react";
 interface PropsType {
   msg: string;
   redirect: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
-const Footer: React.FC<PropsType> = ({ msg, redirect }) => {
+const Footer: React.FC<PropsType> = ({ msg, redirect, onClick }) => {
   return (
-    <div className="my-4">
+    <div className="mt-6">
       <span>{msg}</span>
-      <span className="font-semibold underline decoration-1 cursor-pointer">
+      <span
+        className="font-semibold underline decoration-1 cursor-pointer"
+        onClick={onClick}
+      >
         {redirect}
       </span>
     </div>
