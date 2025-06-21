@@ -8,12 +8,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignIn: React.FC = () => {
-  const navigate = useNavigate();
   type Schema = {
     name: string;
     email: string;
     password: string;
   };
+
+  const navigate = useNavigate();
 
   const [value, setValue] = useState<Schema>({
     name: "",
@@ -35,6 +36,7 @@ const SignIn: React.FC = () => {
     const token = res.data.token;
     console.log(res.data.msg);
     localStorage.setItem("token", token);
+    navigate("/dashboard");
   };
   return (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
@@ -71,3 +73,5 @@ const SignIn: React.FC = () => {
 };
 
 export default SignIn;
+
+//196235

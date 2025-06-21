@@ -37,7 +37,6 @@ const SignUp: React.FC = () => {
       (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signup",
       value
     );
-    const token = res.data.token;
     console.log(res.data.msg);
     navigate("/signin");
   };

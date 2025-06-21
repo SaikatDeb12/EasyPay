@@ -164,7 +164,7 @@ const getBalance = async (req: AuthRequest, res: Response) => {
 
 const transactionSchema = zod.object({
   to: zod.string().min(1),
-  amount: zod.number().min(1),
+  amount: zod.string().min(1),
 });
 
 const handleTransfer = async (req: AuthRequest, res: Response) => {
@@ -172,12 +172,12 @@ const handleTransfer = async (req: AuthRequest, res: Response) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     const body = req.body;
-    // const { success, data, error } = transactionSchema.safeParse(body);
-    // if (!success) {
-    //   return res.status(400).json({ msg: "Invalid input", error: error });
-    // }
+    const { success, data, error } = transactionSchema.safeParse(body);
+    if (!success) {
+      return res.status(400).json({ msg: "Invalid input", error: error });
+    }
 
-    const { to, amount } = body;
+    const { to, amount } = data;
     const user = await AccountModel.findOne({ userId: req.userId }).session(
       session
     );
@@ -209,6 +209,10 @@ const handleTransfer = async (req: AuthRequest, res: Response) => {
   }
 };
 
+const protectedRouteHandler = (req: Request, res: Response) => {
+  res.json({ msg: "welcome" });
+};
+
 export {
   handleSignUp,
   handleSignIn,
@@ -216,4 +220,5 @@ export {
   displayUser,
   getBalance,
   handleTransfer,
+  protectedRouteHandler,
 };
