@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function checkAuth() {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
           setMessage("Welcome guest");
+          setIsLoading(false);
           return;
         }
         const res = await axios.get(
@@ -23,18 +25,26 @@ const HomePage: React.FC = () => {
         );
         if (res.data.msg == "welcome") {
           navigate("/dashboard");
-        } else setMessage("Welcome Guest");
+        } else {
+          setMessage("Welcome Guest");
+          setIsLoading(false);
+        }
       } catch (err) {
         localStorage.removeItem("token");
+      } finally {
         setMessage("Welcome Guest");
       }
+      setIsLoading(false);
     }
     checkAuth();
   }, [navigate]);
   return (
     <div>
-      <h1>This is our website</h1>
-      <h4>{message}</h4>
+      {!isLoading ? (
+        <h3>{`This is our website.. ${message}`}</h3>
+      ) : (
+        <p>loading...</p>
+      )}
     </div>
   );
 };

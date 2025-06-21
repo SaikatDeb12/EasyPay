@@ -136,20 +136,25 @@ const displayUser = async (req: Request, res: Response) => {
     const client = new MongoClient(process.env.MONGODB_URL as string);
     const database = client.db("user");
     const collection = database.collection("users");
-    // const query = {
-    //   $or: [{ firstName: { $eq: "" } }, { lastName: { $eq: "" } }],
-    // };
-    const users = await collection.find().toArray();
-    res.status(200).json(
-      users.map((user) => ({
+    const filter = req.query.filter || "";
+    const query = {
+      $or: [
+        { firstName: { $regex: filter } },
+        { lastName: { $regex: filter } },
+      ],
+    };
+    const users = await collection.find(query).toArray();
+    // res.status(200).json(users);
+    res.status(200).json({
+      users: users.map((user) => ({
         _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-      }))
-    );
+      })),
+    });
   } catch (err) {
-    res.status(500).json({ msg: "Server error" });
+    res.status(500).json({ msg: "Server error", error: err });
   }
 };
 
