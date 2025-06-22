@@ -42,7 +42,7 @@ const handleSignUp = async (req: Request, res: Response) => {
     //giving the user some random amount in the account:
     await AccountModel.create({
       userId: dbUser._id,
-      balance: Math.random() * 1000 + 1,
+      balance: (Math.random() * 1000 + 1).toFixed(2),
     });
 
     const token = jwt.sign(
@@ -161,7 +161,7 @@ const displayUser = async (req: Request, res: Response) => {
 const getBalance = async (req: AuthRequest, res: Response) => {
   try {
     const account = await AccountModel.findOne({ userId: req.userId });
-    res.status(200).json({ msg: `Balance Rs. ${account?.balance}` });
+    res.status(200).json({ msg: `${account?.balance}` });
   } catch (err) {
     res.status(400).json({ msg: "Account not found" });
   }

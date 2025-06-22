@@ -14,10 +14,10 @@ const InputBox: React.FC<PropType> = ({
 }) => {
   return (
     <div className="my-2">
-      <label className="font-semibold">{label}</label>
+      {label && <label className="font-semibold">{label}</label>}
       <input
         name={name}
-        className="w-full transition delay-50 my-1 rounded-lg border-2 border-gray-200 hover:border-black focus:border-black px-2 py-1 outline-none"
+        className="w-full transition delay-50 my-1 rounded-lg border-2 border-gray-200 hover:border-black focus:border-blue-400 px-2 py-1 outline-none"
         placeholder={placeholder}
         type={type}
         onChange={onChange}
