@@ -1,6 +1,6 @@
 interface PropType {
-  name: string;
-  label: string;
+  name?: string;
+  label?: string;
   placeholder: string;
   type: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

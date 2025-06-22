@@ -70,7 +70,7 @@ const SignIn: React.FC = () => {
     <p>Loading...</p>
   ) : (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
-      <div className="rounded-lg bg-white w-90 p-2 h-max px-4 pb-10 flex flex-col justify-center items-center">
+      <div className="rounded-lg bg-white w-90 p-2 px-4 pb-10 h-max flex flex-col justify-center items-center">
         <div className="text-center">
           <Heading label={"Sign In"} />
           <SubHeading />
