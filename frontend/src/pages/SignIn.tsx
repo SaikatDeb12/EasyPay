@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import Heading from "../components/Heading";
@@ -8,13 +8,40 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignIn: React.FC = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function redirect() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          return;
+        }
+        const res = await axios.get(
+          (import.meta.env.VITE_BASE_URL as string) + "/api/v1/home",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(res.data.msg);
+        if (res.data.msg == "welcome") {
+          navigate("/dashboard");
+        }
+        setLoading(false);
+      } catch (err) {
+        localStorage.removeItem("token");
+      }
+    }
+    redirect();
+  }, [navigate]);
+
   type Schema = {
     name: string;
     email: string;
     password: string;
   };
-
-  const navigate = useNavigate();
 
   const [value, setValue] = useState<Schema>({
     name: "",
@@ -38,7 +65,9 @@ const SignIn: React.FC = () => {
     localStorage.setItem("token", token);
     navigate("/dashboard");
   };
-  return (
+  return loading ? (
+    <p>Loading...</p>
+  ) : (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
       <div className="rounded-lg bg-white w-90 p-2 h-max px-4 pb-10 flex flex-col justify-center items-center">
         <div className="text-center">

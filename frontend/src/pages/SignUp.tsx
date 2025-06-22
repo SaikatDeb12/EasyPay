@@ -4,11 +4,38 @@ import Footer from "../components/Footer";
 import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function redirect() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          return;
+        }
+        const res = await axios.get(
+          (import.meta.env.VITE_BASE_URL as string) + "/api/v1/home",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(res.data.msg);
+        if (res.data.msg == "welcome") {
+          navigate("/dashboard");
+        }
+        setLoading(false);
+      } catch (err) {
+        localStorage.removeItem("token");
+      }
+    }
+    redirect();
+  }, [navigate]);
 
   type Schema = {
     name: string;
@@ -41,7 +68,9 @@ const SignUp: React.FC = () => {
     navigate("/signin");
   };
 
-  return (
+  return loading ? (
+    <p>Loading...</p>
+  ) : (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
       <div className="rounded-lg bg-white w-90 p-2 h-max px-4 pb-10 flex flex-col justify-center items-center">
         <div className="text-center">

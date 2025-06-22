@@ -2,6 +2,7 @@ import axios from "axios";
 import type React from "react";
 import { useEffect, useState } from "react";
 import User from "../components/User";
+import Profile from "../components/Profile";
 
 type UserType = {
   _id: string;
@@ -29,14 +30,19 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <h2>Users:</h2>
-      <div>
+    <div className="w-full h-screen">
+      <div className="w-full flex justify-between border ">
+        <div className="text-xl m-2">Easy Pay</div>
+        <div className="flex m-2 items-center">
+          <p>Hello</p>
+          <Profile />
+        </div>
+      </div>
+      {/* <div>
         {list.map((user, ind) => (
           <User key={ind} details={user} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
