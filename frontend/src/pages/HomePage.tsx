@@ -84,7 +84,7 @@ const HomePage: React.FC = () => {
           </p>
           <div className="grid grid-cols-3 grid-rows-1 text-center gap-4 space-x-4 m-auto w-200 mt-10">
             <div className="border-2 border-blue-50 px-4 py-3 rounded-sm">
-              <p className="text-md font-semibold space-y-1 px-2  ">
+              <p className="text-md font-bold space-y-1 px-2  ">
                 Instant Transfer
               </p>
               <p className="text-sm text-gray-500">
@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
               </p>
             </div>
             <div className="border-2 border-blue-50 px-3 py-2 rounded-sm">
-              <p className="text-md font-semibold space-y-1 px-2 ">
+              <p className="text-md font-bold space-y-1 px-2 ">
                 Bank-Level Security
               </p>
               <p className="text-sm text-gray-500">
@@ -100,7 +100,7 @@ const HomePage: React.FC = () => {
               </p>
             </div>
             <div className="border-2 border-blue-50 px-3 py-2 rounded-sm">
-              <p className="text-md font-semibold space-y-1 px-2 ">
+              <p className="text-md font-bold space-y-1 px-2 ">
                 Interactive UI
               </p>
               <p className="text-sm text-gray-500">
@@ -111,8 +111,39 @@ const HomePage: React.FC = () => {
         </div>
       </div>
       <div className="h-150 bg-gray-200 w-full flex justify-center items-center">
-        <div className="flex flex-col items-center space-y-4"></div>
+        <div className="flex flex-col items-center space-y-4">
+          <Heading label="How EasyPay Works" color="text-black" />
+          <p className="text-gray-600 text-center w-150">
+            Get started in minutes with our simple three-step process
+          </p>
+          <div className="grid grid-cols-3 grid-rows-1 text-center gap-4 space-x-4 m-auto w-200 mt-10">
+            <div className="outline:none px-4 py-3 rounded-sm">
+              <p className="text-md font-bold space-y-1 px-2  ">
+                Create Account
+              </p>
+              <p className="text-sm text-gray-500">
+                Sign up with your email and verify your identity in under 2
+                minutes.
+              </p>
+            </div>
+            <div className="outline:none px-3 py-2 rounded-sm">
+              <p className="text-md font-bold space-y-1 px-2 ">Add Money</p>
+              <p className="text-sm text-gray-500">
+                Link your bank account card to add oney to your EasyPay wallet.
+              </p>
+            </div>
+            <div className="outline:none px-3 py-2 rounded-sm">
+              <p className="text-md font-bold space-y-1 px-2 ">
+                Send & Receive
+              </p>
+              <p className="text-sm text-gray-500">
+                Start sending oney to friends, family, or business instantly.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+      <div></div>
     </div>
   );
 };
