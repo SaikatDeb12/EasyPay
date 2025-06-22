@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn";
 import HomePage from "./pages/HomePage";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
+import Transaction from "./pages/Transaction";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route path={"/signin"} element={<SignIn />} />
         <Route path={"/landing"} element={<LandingPage />} />
         <Route path={"/dashboard"} element={<Dashboard />} />
-        <Route path={"/send"} element={<SignIn />} />
+        <Route path={"/transfer"} element={<Transaction />} />
         <Route path={"/"} element={<HomePage />} />
       </Routes>
     </Router>

@@ -29,9 +29,10 @@ const SignIn: React.FC = () => {
         if (res.data.msg == "welcome") {
           navigate("/dashboard");
         }
-        setLoading(false);
       } catch (err) {
         localStorage.removeItem("token");
+      } finally {
+        setLoading(false);
       }
     }
     redirect();

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Profile from "../components/Profile";
 import InputBox from "../components/InputBox";
 import User from "../components/User";
-import Button from "../components/Button";
 
 type UserType = {
   _id: string;
@@ -15,12 +14,19 @@ type UserType = {
 const Dashboard: React.FC = () => {
   const [list, setList] = useState<UserType[]>([]);
   const [balance, setBalance] = useState<number>(0);
+  const [filter, setFilter] = useState<string>("");
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.target.value);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const fetchData = async () => {
       const res = await axios.get(
-        (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/bulk",
+        (import.meta.env.VITE_BASE_URL as string) +
+          "/api/v1/user/bulk?filter=" +
+          filter,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -29,6 +35,7 @@ const Dashboard: React.FC = () => {
       );
       setList(res.data.users);
     };
+
     const fetchBalance = async () => {
       const token = localStorage.getItem("token");
       const res = await axios.get(
@@ -44,9 +51,7 @@ const Dashboard: React.FC = () => {
     };
     fetchBalance();
     fetchData();
-  }, []);
-
-  const handleOnChange = () => {};
+  }, [filter]);
 
   return (
     <div className="w-full h-screen">
@@ -78,8 +83,6 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* <div>
-      </div> */}
     </div>
   );
 };
