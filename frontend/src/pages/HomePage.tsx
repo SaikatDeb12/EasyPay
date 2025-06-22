@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
           }
         );
         if (res.data.msg == "welcome") {
-          navigate("/dashboard");
+          navigate("/landing");
         } else {
           setMessage("Welcome Guest");
           setIsLoading(false);

@@ -1,7 +1,5 @@
 import axios from "axios";
-import type React from "react";
 import { useEffect, useState } from "react";
-import User from "../components/User";
 import Profile from "../components/Profile";
 
 type UserType = {
