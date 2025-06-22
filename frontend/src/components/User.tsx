@@ -19,8 +19,8 @@ const User: React.FC<PropType> = ({ details }) => {
   };
 
   return (
-    <div className="flex items-center justify-between my-4">
-      <div className="flex">
+    <div className="flex items-center justify-between rounded-lg p-2 border border-gray-300 my-4">
+      <div className="flex items-center">
         <Profile />
         <p className="text-md mx-8">{`${details.firstName} ${details.lastName}`}</p>
       </div>

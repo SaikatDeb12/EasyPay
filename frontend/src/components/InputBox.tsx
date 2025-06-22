@@ -13,7 +13,7 @@ const InputBox: React.FC<PropType> = ({
   onChange,
 }) => {
   return (
-    <div className="my-2">
+    <div>
       {label && <label className="font-semibold">{label}</label>}
       <input
         name={name}

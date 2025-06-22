@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="w-full h-screen">
       <div className="w-full flex justify-between items-center h-fit border-gray-400 shadow-lg ">
-        <div className="text-2xl mx-2 font-normal">Easy Pay</div>
+        <div className="text-2xl p-4 mx-2 font-bold">Easy Pay</div>
         <div className="flex m-2 items-center">
           <p>Hello</p>
           <Profile />

@@ -9,7 +9,7 @@ const Button: React.FC<PropsType> = ({ text, onClick }) => {
     <button
       onClick={onClick}
       type="submit"
-      className="w-full bg-black text-white rounded-lg px-3 py-1 shadow-md hover:shadow-lg ease-in-out font-semibold text-center mt-6 cursor-pointer"
+      className="w-full bg-blue-500 text-white rounded-lg px-3 py-1 hover:shadow-md shadow-lg ease-in-out font-semibold text-center cursor-pointer"
     >
       {text}
     </button>

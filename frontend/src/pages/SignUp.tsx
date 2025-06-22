@@ -78,7 +78,7 @@ const SignUp: React.FC = () => {
           <Heading label={"Sign Up"} />
           <SubHeading />
         </div>
-        <form className="items-start" onSubmit={handleSubmit}>
+        <form className="items-start space-y-6 mt-4" onSubmit={handleSubmit}>
           <InputBox
             name={"firstName"}
             label="First Name"

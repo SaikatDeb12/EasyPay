@@ -75,7 +75,10 @@ const SignIn: React.FC = () => {
           <Heading label={"Sign In"} />
           <SubHeading />
         </div>
-        <form className="items-start" onSubmit={(event) => handleSubmit(event)}>
+        <form
+          className="items-start space-y-6 mt-4"
+          onSubmit={(event) => handleSubmit(event)}
+        >
           <InputBox
             name="email"
             label="Email"
