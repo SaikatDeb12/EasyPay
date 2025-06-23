@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Profile from "../components/Profile";
 import InputBox from "../components/InputBox";
 import User from "../components/User";
+import { useNavigate } from "react-router-dom";
 
 type UserType = {
   _id: string;
@@ -20,8 +21,17 @@ const Dashboard: React.FC = () => {
     setFilter(event.target.value);
   };
 
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/signin");
+    } else {
+      setLoading(false);
+    }
+
     const fetchData = async () => {
       const res = await axios.get(
         (import.meta.env.VITE_BASE_URL as string) +
@@ -51,35 +61,49 @@ const Dashboard: React.FC = () => {
     };
     fetchBalance();
     fetchData();
-  }, [filter]);
+  }, [filter, navigate]);
 
-  return (
-    <div className="w-full h-screen">
+  return loading ? (
+    <p>Loading...</p>
+  ) : (
+    <div className="w-full h-screen ">
       <div className="w-full flex justify-between items-center h-fit border-gray-400 shadow-lg ">
-        <div className="text-2xl p-4 mx-2 font-bold">Easy Pay</div>
+        <div className="text-2xl text-blue-500 p-4 mx-2 font-bold">
+          Easy Pay
+        </div>
         <div className="flex m-2 items-center">
-          <p>Hello</p>
+          <p
+            className="font-semibold text-blue-500 cursor-pointer"
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/");
+            }}
+          >
+            Logout
+          </p>
           <Profile />
         </div>
       </div>
-      <div className="m-8 space-y-10">
-        <div>
-          <h2 className="font-bold text-xl">Your current balance: </h2>
-          <h4 className="text-md">{`Rs. ${balance}`}</h4>
-        </div>
-        <div>
-          <h2 className="text-xl font-bold">Users</h2>
-          <InputBox
-            label=""
-            name="search"
-            placeholder="Search users..."
-            type="text"
-            onChange={handleOnChange}
-          />
+      <div className="w-full">
+        <div className="m-8 space-y-10 ">
           <div>
-            {list.map((user, ind) => (
-              <User key={ind} details={user} />
-            ))}
+            <h2 className="font-bold text-xl">Your current balance: </h2>
+            <h4 className="text-md">{`Rs. ${balance}`}</h4>
+          </div>
+          <div>
+            <h2 className="text-xl font-bold">Users</h2>
+            <InputBox
+              label=""
+              name="search"
+              placeholder="Search users..."
+              type="text"
+              onChange={handleOnChange}
+            />
+            <div>
+              {list.map((user, ind) => (
+                <User key={ind} details={user} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

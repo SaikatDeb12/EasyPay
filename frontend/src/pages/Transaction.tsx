@@ -15,7 +15,7 @@ const Transaction: React.FC = () => {
     <div className="h-screen w-full flex justify-center items-center bg-slate-300">
       <div className="w-90 space-y-4 bg-white rounded-lg h-max px-4 p-2 pb-10 ">
         <div className="flex flex-col justify-center items-center mb-8">
-          <Heading label="Send Money" />
+          <Heading color="text-black" label="Send Money" />
         </div>
         <div className="flex items-center ">
           <Profile />
