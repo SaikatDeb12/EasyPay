@@ -6,6 +6,7 @@ import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ const SignUp: React.FC = () => {
     lastName: string;
     email: string;
     password: string;
+    amount: number;
   };
 
   const [value, setValue] = useState<Schema>({
@@ -52,21 +54,34 @@ const SignUp: React.FC = () => {
     lastName: "",
     email: "",
     password: "",
+    amount: 0,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue({ ...value, [event.target.name]: event.target.value });
+    if (event.target.name == "amount")
+      setValue({ ...value, [event.target.name]: event.target.valueAsNumber });
+    else setValue({ ...value, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(value);
-    const res = await axios.post(
-      (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signup",
-      value
-    );
-    console.log(res.data.msg);
-    navigate("/signin");
+    try {
+      console.log(value);
+      const res = await axios.post(
+        (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signup",
+        value,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data.msg);
+      toast.success(res.data.msg);
+      navigate("/signin");
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return loading ? (
@@ -75,7 +90,7 @@ const SignUp: React.FC = () => {
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
       <div className="rounded-lg bg-white w-90 p-2 h-max px-4 pb-10 flex flex-col justify-center items-center">
         <div className="text-center">
-          <Heading label={"Sign Up"} />
+          <Heading color="text-black" label={"Sign Up"} />
           <SubHeading />
         </div>
         <form className="items-start space-y-6 mt-4" onSubmit={handleSubmit}>
@@ -105,6 +120,13 @@ const SignUp: React.FC = () => {
             label="Password"
             placeholder="******"
             type="password"
+            onChange={handleChange}
+          />
+          <InputBox
+            name="amount"
+            label="Amount (in Rs.)"
+            placeholder="1000"
+            type="number"
             onChange={handleChange}
           />
           <Button text="Sign Up" />

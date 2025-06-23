@@ -13,6 +13,7 @@ const signUpSchema = zod.object({
   lastName: zod.string(),
   email: zod.string().email("Invalid email"),
   password: zod.string().min(6, "Must be atleast 6 characters"),
+  amount: zod.number().min(1, "Amount is required"),
 });
 
 const handleSignUp = async (req: Request, res: Response) => {
@@ -24,7 +25,7 @@ const handleSignUp = async (req: Request, res: Response) => {
       return;
     }
 
-    const { firstName, lastName, email, password } = data;
+    const { firstName, lastName, email, password, amount } = data;
     const user = await UserModel.findOne({ email });
     if (user) {
       res.status(400).json({ msg: "Email already registered" });
@@ -37,12 +38,13 @@ const handleSignUp = async (req: Request, res: Response) => {
       lastName: lastName,
       email: email,
       password: hashedPassword,
+      amount: amount,
     });
 
     //giving the user some random amount in the account:
     await AccountModel.create({
       userId: dbUser._id,
-      balance: (Math.random() * 1000 + 1).toFixed(2),
+      balance: amount.toFixed(2),
     });
 
     const token = jwt.sign(
@@ -161,7 +163,9 @@ const displayUser = async (req: Request, res: Response) => {
 const getBalance = async (req: AuthRequest, res: Response) => {
   try {
     const account = await AccountModel.findOne({ userId: req.userId });
-    res.status(200).json({ msg: `${account?.balance}` });
+    res
+      .status(200)
+      .json({ amount: `${account?.balance}`, currentUserId: req.userId });
   } catch (err) {
     res.status(400).json({ msg: "Account not found" });
   }

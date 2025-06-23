@@ -6,6 +6,7 @@ import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -56,14 +57,19 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const res = await axios.post(
-      (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signin",
-      value
-    );
-    const token = res.data.token;
-    console.log(res.data.msg);
-    localStorage.setItem("token", token);
-    navigate("/dashboard");
+    try {
+      const res = await axios.post(
+        (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signin",
+        value
+      );
+      const token = res.data.token;
+      console.log(res.data.msg);
+      toast.success(res.data.msg);
+      localStorage.setItem("token", token);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log("Error: ", err);
+    }
   };
   return loading ? (
     <p>Loading...</p>

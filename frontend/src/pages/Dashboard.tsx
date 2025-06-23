@@ -16,6 +16,7 @@ const Dashboard: React.FC = () => {
   const [list, setList] = useState<UserType[]>([]);
   const [balance, setBalance] = useState<number>(0);
   const [filter, setFilter] = useState<string>("");
+  const [currentUserId, setCurrentUserId] = useState<string>("");
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
@@ -57,7 +58,8 @@ const Dashboard: React.FC = () => {
         }
       );
 
-      setBalance(Number(res.data.msg));
+      setBalance(Number(res.data.amount));
+      setCurrentUserId(res.data.currentUserId);
     };
     fetchBalance();
     fetchData();
@@ -100,9 +102,10 @@ const Dashboard: React.FC = () => {
               onChange={handleOnChange}
             />
             <div>
-              {list.map((user, ind) => (
-                <User key={ind} details={user} />
-              ))}
+              {list.map(
+                (user, ind) =>
+                  user._id != currentUserId && <User key={ind} details={user} />
+              )}
             </div>
           </div>
         </div>
