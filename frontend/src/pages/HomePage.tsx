@@ -47,15 +47,19 @@ const HomePage: React.FC = () => {
         <div className="text-2xl mx-4 p-4 font-bold text-blue-500">
           Easy Pay
         </div>
-        <div className="flex items-center m-2 ">
-          <div
-            className="text-sm mx-4 text-blue-500 w-20 cursor-pointer"
-            onClick={() => navigate("/signin")}
-          >
-            Sign In
+        {localStorage.getItem("token") ? (
+          <Button text="Dashboard" onClick={() => navigate("/dashboard")} />
+        ) : (
+          <div className="flex items-center m-2 ">
+            <div
+              className="text-sm mx-4 text-blue-500 w-20 cursor-pointer"
+              onClick={() => navigate("/signin")}
+            >
+              Sign In
+            </div>
+            <Button text="Get Started" onClick={() => navigate("/signup")} />
           </div>
-          <Button text="Get Started" onClick={() => navigate("/signup")} />
-        </div>
+        )}
       </div>
       <div className="bg-blue-100 z-0 h-150 flex flex-col justify-center">
         <div className="mx-10 space-y-3">

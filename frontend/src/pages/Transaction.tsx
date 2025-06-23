@@ -4,7 +4,7 @@ import Profile from "../components/Profile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import InputBox from "../components/InputBox";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const Transaction: React.FC = () => {
   const [params, setParams] = useSearchParams();
@@ -56,7 +56,7 @@ const Transaction: React.FC = () => {
       console.log(response.data.msg);
       navigate("/dashboard");
     } catch (err) {
-      console.log("error: ", err);
+      console.log("error: ", err.response.data.msg);
     }
   };
 
