@@ -10,7 +10,7 @@ const Footer: React.FC<PropsType> = ({ msg, redirect, onClick }) => {
     <div className="mt-6">
       <span>{msg}</span>
       <span
-        className="font-semibold underline decoration-1 cursor-pointer"
+        className="font-semibold text-blue-400 underline decoration-1 cursor-pointer"
         onClick={onClick}
       >
         {redirect}

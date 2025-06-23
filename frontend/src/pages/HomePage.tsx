@@ -6,14 +6,14 @@ import Heading from "../components/Heading";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function checkAuth() {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          setMessage("Welcome guest");
+          // setMessage("Welcome guest");
           setIsLoading(false);
           return;
         }
@@ -28,32 +28,36 @@ const HomePage: React.FC = () => {
         if (res.data.msg == "welcome") {
           navigate("/landing");
         } else {
-          setMessage("Welcome Guest");
+          // setMessage("Welcome Guest");
           setIsLoading(false);
         }
       } catch (err) {
         localStorage.removeItem("token");
       } finally {
-        setMessage("Welcome Guest");
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     checkAuth();
   }, [navigate]);
   return isLoading ? (
     <p>Loading...</p>
   ) : (
-    <div className="w-ful h-screen">
-      <div className="w-full z-10 flex justify-between items-center h-fit border-gray-400 shadow-lg ">
+    <div className="w-full h-screen">
+      <div className="w-full z-10 sticky bg-white flex justify-between items-center h-fit border-gray-400 shadow-lg ">
         <div className="text-2xl mx-4 p-4 font-bold text-blue-500">
           Easy Pay
         </div>
         <div className="flex items-center m-2 ">
-          <div className="text-sm mx-4 text-blue-500 w-20">Sign In</div>
+          <div
+            className="text-sm mx-4 text-blue-500 w-20 cursor-pointer"
+            onClick={() => navigate("/signin")}
+          >
+            Sign In
+          </div>
           <Button text="Get Started" onClick={() => navigate("/signup")} />
         </div>
       </div>
-      <div className="bg-blue-100 h-150 flex flex-col justify-center">
+      <div className="bg-blue-100 z-0 h-150 flex flex-col justify-center">
         <div className="mx-10 space-y-3">
           <div className="flex space-x-2 leading-none">
             <Heading label="Send & Receive Money" color="black" />
@@ -64,7 +68,10 @@ const HomePage: React.FC = () => {
               The fastest and most secure way to transfer money. Join to explore
               the true potential
             </p>
-            <Button text="Start Sending Money ->" />
+            <Button
+              text="Start Sending Money ->"
+              onClick={() => navigate("/signup")}
+            />
             <div className="flex text-sm space-x-5">
               <p>No setup fees</p>
               <p>Instant transfer</p>
@@ -82,7 +89,7 @@ const HomePage: React.FC = () => {
             From instant transfers to secure transactions, EasyPay provides most
             of the tool you need for seamless money management
           </p>
-          <div className="grid grid-cols-3 grid-rows-1 text-center gap-4 space-x-4 m-auto w-200 mt-10">
+          <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
             <div className="border-2 border-blue-50 px-4 py-3 rounded-sm">
               <p className="text-md font-bold space-y-1 px-2  ">
                 Instant Transfer
@@ -116,7 +123,7 @@ const HomePage: React.FC = () => {
           <p className="text-gray-600 text-center w-150">
             Get started in minutes with our simple three-step process
           </p>
-          <div className="grid grid-cols-3 grid-rows-1 text-center gap-4 space-x-4 m-auto w-200 mt-10">
+          <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
             <div className="outline:none px-4 py-3 rounded-sm">
               <p className="text-md font-bold space-y-1 px-2  ">
                 Create Account
@@ -143,7 +150,11 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div></div>
+      <div className="h-50 bg-blue-500 w-full flex items-center">
+        <div className="text-white">
+          <p>here is the footer</p>
+        </div>
+      </div>
     </div>
   );
 };

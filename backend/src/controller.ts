@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { AccountModel, UserModel } from "./db";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import mongoose, { startSession } from "mongoose";
 dotenv.config();
 
 const signUpSchema = zod.object({

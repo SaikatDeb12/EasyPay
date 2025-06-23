@@ -72,7 +72,7 @@ const SignIn: React.FC = () => {
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
       <div className="rounded-lg bg-white w-90 p-2 px-4 pb-10 h-max flex flex-col justify-center items-center">
         <div className="text-center">
-          <Heading label={"Sign In"} />
+          <Heading color="text-black" label={"Sign In"} />
           <SubHeading />
         </div>
         <form
