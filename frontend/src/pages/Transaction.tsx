@@ -3,15 +3,35 @@ import Heading from "../components/Heading";
 import Profile from "../components/Profile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import InputBox from "../components/InputBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Transaction: React.FC = () => {
   const [params, setParams] = useSearchParams();
   const [amount, setAmount] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const id = params.get("id");
   const name = params.get("name");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/signin");
+    } else {
+      setIsLoading(false);
+    }
+
+    async function validate() {
+      const response = await axios.get(
+        (import.meta.env.VITE_BASE_URL as string) + "/api/v1/home"
+      );
+      if (response.data.msg != "welcome") {
+        navigate("/signin");
+      }
+    }
+    validate();
+  }, [navigate]);
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);

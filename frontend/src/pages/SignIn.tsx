@@ -6,7 +6,7 @@ import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const SignIn: React.FC = () => {
         );
         console.log(res.data.msg);
         if (res.data.msg == "welcome") {
-          navigate("/dashboard");
+          navigate("/landing");
         }
       } catch (err) {
         localStorage.removeItem("token");
