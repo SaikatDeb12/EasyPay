@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
-import { MdOutlineDoneOutline } from "react-icons/md";
+import { MdOutlineDoneOutline, MdOutlineSecurity } from "react-icons/md";
 import { TbCircleNumber1Filled } from "react-icons/tb";
 import { TbCircleNumber2Filled } from "react-icons/tb";
 import { TbCircleNumber3Filled } from "react-icons/tb";
+import { AiOutlineMobile, AiOutlineThunderbolt } from "react-icons/ai";
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -64,20 +65,26 @@ const LandingPage: React.FC = () => {
               the true potential
             </p>
             <Button
-              text="Start Sending Money ->"
+              text="Start Sending Money "
               onClick={() => navigate("/dashboard")}
             />
             <div className="flex text-sm space-x-5">
               <div className="flex items-center space-x-1">
-                <MdOutlineDoneOutline />
+                <div className="text-green-600">
+                  <MdOutlineDoneOutline />
+                </div>
                 <p>No setup fees</p>
               </div>
               <div className="flex items-center space-x-1">
-                <MdOutlineDoneOutline />
+                <div className="text-green-600">
+                  <MdOutlineDoneOutline />
+                </div>
                 <p>Instant transfer</p>
               </div>
               <div className="flex items-center space-x-1">
-                <MdOutlineDoneOutline />
+                <div className="text-green-600">
+                  <MdOutlineDoneOutline />
+                </div>
                 <p>24/7 support</p>
               </div>
             </div>
@@ -103,6 +110,9 @@ const LandingPage: React.FC = () => {
           </p>
           <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
             <div className="border-2 border-blue-50 px-4 py-3 rounded-sm">
+              <div className="text-5xl flex justify-center text-blue-500">
+                <AiOutlineThunderbolt />
+              </div>
               <p className="text-md font-bold space-y-1 px-2  ">
                 Instant Transfer
               </p>
@@ -111,6 +121,9 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
             <div className="border-2 border-blue-50 px-3 py-2 rounded-sm">
+              <div className="text-5xl flex justify-center text-blue-500">
+                <MdOutlineSecurity />
+              </div>
               <p className="text-md font-bold space-y-1 px-2 ">
                 Bank-Level Security
               </p>
@@ -119,6 +132,9 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
             <div className="border-2 border-blue-50 px-3 py-2 rounded-sm">
+              <div className="text-5xl flex justify-center text-blue-500">
+                <AiOutlineMobile />
+              </div>
               <p className="text-md font-bold space-y-1 px-2 ">
                 Interactive UI
               </p>
@@ -137,7 +153,7 @@ const LandingPage: React.FC = () => {
           </p>
           <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
             <div className="outline:none px-4 py-3 rounded-sm w-full">
-              <div className="text-5xl flex justify-center">
+              <div className="text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber1Filled />
               </div>
               <p className="text-md font-bold space-y-1 px-2  ">
@@ -149,7 +165,7 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
             <div className="outline:none px-3 py-2 rounded-sm">
-              <div className="text-5xl flex justify-center">
+              <div className="text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber2Filled />
               </div>
               <p className="text-md font-bold space-y-1 px-2 ">Add Money</p>
@@ -158,7 +174,7 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
             <div className="outline:none px-3 py-2 rounded-sm">
-              <div className="text-5xl flex justify-center">
+              <div className="text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber3Filled />
               </div>
               <p className="text-md font-bold space-y-1 px-2 ">
@@ -171,19 +187,23 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="h-fit bg-blue-500 w-full">
+      <div className="h-fit bg-blue-600 w-full">
         <div className="text-white h-50 w-full flex justify-around ">
-          <div className="flex items-center">
+          <div className="flex flex-col justify-center text-center">
             <Heading color="text-white" label="10M+" />
+            <p className="text-sm">Transactions</p>
           </div>
-          <div className="flex items-center">
+          <div className="flex flex-col justify-center text-center">
             <Heading color="text-white" label="500K+" />
+            <p className="text-sm">Active Users</p>
           </div>
-          <div className="flex items-center">
+          <div className="flex flex-col justify-center text-center">
             <Heading color="text-white" label="99.9%" />
+            <p className="text-sm">Uptime</p>
           </div>
-          <div className="flex items-center">
+          <div className="flex flex-col justify-center text-center">
             <Heading color="text-white" label="24/7" />
+            <p className="text-sm">Support</p>
           </div>
         </div>
       </div>
