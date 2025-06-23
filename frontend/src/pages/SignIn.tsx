@@ -56,7 +56,6 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(value);
     const res = await axios.post(
       (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signin",
       value

@@ -1,15 +1,44 @@
 import type React from "react";
 import Heading from "../components/Heading";
 import Profile from "../components/Profile";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import InputBox from "../components/InputBox";
+import { useState } from "react";
+import axios from "axios";
 
 const Transaction: React.FC = () => {
   const [params, setParams] = useSearchParams();
+  const [amount, setAmount] = useState<string>("");
+  const navigate = useNavigate();
   const id = params.get("id");
   const name = params.get("name");
 
-  const handleAmount = () => {};
+  const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(event.target.value);
+  };
+
+  const initiateTransfer = async () => {
+    const value = {
+      to: id,
+      amount: amount,
+    };
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        (import.meta.env.VITE_BASE_URL as string) + "/api/v1/account/transfer",
+        value,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data.msg);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log("error: ", err);
+    }
+  };
 
   return (
     <div className="h-screen w-full flex justify-center items-center bg-slate-300">
@@ -29,7 +58,7 @@ const Transaction: React.FC = () => {
             type="number"
           />
           <button
-            onClick={handleAmount}
+            onClick={initiateTransfer}
             type="submit"
             className="w-full bg-black hover:bg-green-500 transition delay-50 text-white rounded-lg px-3 py-1 shadow-md hover:shadow-lg ease-in-out font-semibold text-center mt-6 cursor-pointer"
           >
