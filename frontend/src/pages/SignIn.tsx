@@ -28,7 +28,7 @@ const SignIn: React.FC = () => {
         );
         console.log(res.data.msg);
         if (res.data.msg == "welcome") {
-          navigate("/landing");
+          navigate("/");
         }
       } catch (error) {
         localStorage.removeItem("token");

@@ -15,6 +15,7 @@ import { FaRegCopyright } from "react-icons/fa";
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(() => {
     async function checkAuth() {
       try {
@@ -32,12 +33,11 @@ const HomePage: React.FC = () => {
           }
         );
         if (res.data.msg == "welcome") {
-          navigate("/landing");
+          setIsValid(true);
         } else {
-          setIsLoading(false);
+          localStorage.removeItem("token");
         }
       } catch (error) {
-        localStorage.removeItem("token");
         const err = error as AxiosError;
         console.log(err.response?.data);
       } finally {
@@ -54,8 +54,10 @@ const HomePage: React.FC = () => {
         <div className="text-2xl mx-4 p-4 font-bold text-blue-500">
           Easy Pay
         </div>
-        {localStorage.getItem("token") ? (
-          <Button text="Dashboard" onClick={() => navigate("/dashboard")} />
+        {isValid ? (
+          <div className="flex items-center mr-10">
+            <Button text="Dashboard" onClick={() => navigate("/dashboard")} />
+          </div>
         ) : (
           <div className="flex items-center m-2 ">
             <div
@@ -64,7 +66,12 @@ const HomePage: React.FC = () => {
             >
               Sign In
             </div>
-            <Button text="Get Started" onClick={() => navigate("/signup")} />
+            <Button
+              text="Get Started"
+              onClick={() => {
+                if (!isValid) navigate("/signup");
+              }}
+            />
           </div>
         )}
       </div>
@@ -81,7 +88,10 @@ const HomePage: React.FC = () => {
             </p>
             <Button
               text="Start Sending Money "
-              onClick={() => navigate("/dashboard")}
+              onClick={() => {
+                if (!isValid) navigate("/signin");
+                else navigate("/dashboard");
+              }}
             />
             <div className="flex text-sm space-x-5">
               <div className="flex items-center space-x-1">
@@ -230,7 +240,13 @@ const HomePage: React.FC = () => {
             transactions
           </p>
           <div className="mx-auto">
-            <Button text="Get Started" onClick={() => navigate("/dashboard")} />
+            <Button
+              text="Get Started"
+              onClick={() => {
+                if (!isValid) navigate("/signin");
+                else navigate("/dashboard");
+              }}
+            />
           </div>
         </div>
       </div>
