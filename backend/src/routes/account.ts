@@ -1,4 +1,4 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 import { getBalance, handleTransfer } from "../controller";
 import authMiddleware from "../middleware";
 const accountRouter = express.Router();

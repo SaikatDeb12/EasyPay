@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Auth, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import zod from "zod";
 import bcrypt from "bcrypt";
 import { AccountModel, UserModel } from "./db";
@@ -101,19 +101,14 @@ const updateSchema = zod.object({
   password: zod.string().min(6).optional(),
 });
 
-interface AuthRequest extends Request {
-  userId: string;
-}
-
-const handleUpdate = async (req: AuthRequest, res: Response) => {
+const handleUpdate = async (req: Request, res: Response) => {
   try {
     const body = req.body;
     const { success, data, error } = updateSchema.safeParse(body);
 
     if (!success) {
-      return res
-        .status(411)
-        .json({ msg: "Error while updating ", error: error });
+      res.status(411).json({ msg: "Error while updating ", error: error });
+      return;
     }
 
     const { firstName, lastName, password } = data;
@@ -160,7 +155,7 @@ const displayUser = async (req: Request, res: Response) => {
   }
 };
 
-const getBalance = async (req: AuthRequest, res: Response) => {
+const getBalance = async (req: Request, res: Response) => {
   try {
     const account = await AccountModel.findOne({ userId: req.userId });
     res
@@ -176,14 +171,15 @@ const transactionSchema = zod.object({
   amount: zod.string().min(1),
 });
 
-const handleTransfer = async (req: AuthRequest, res: Response) => {
+const handleTransfer = async (req: Request, res: Response) => {
   try {
     const session = await mongoose.startSession();
     session.startTransaction();
     const body = req.body;
     const { success, data, error } = transactionSchema.safeParse(body);
     if (!success) {
-      return res.status(400).json({ msg: "Invalid input", error: error });
+      res.status(400).json({ msg: "Invalid input", error: error });
+      return;
     }
 
     const { to, amount } = data;
@@ -192,13 +188,15 @@ const handleTransfer = async (req: AuthRequest, res: Response) => {
     );
     if (!user || (user.balance as number) < Number(amount)) {
       await session.abortTransaction();
-      return res.status(400).json({ msg: "Insufficient balance" });
+      res.status(400).json({ msg: "Insufficient balance" });
+      return;
     }
 
     const receiver = UserModel.findOne({ userId: to }).session(session);
     if (!receiver) {
       await session.abortTransaction();
-      return res.status(400).json({ msg: "Invalid account" });
+      res.status(400).json({ msg: "Invalid account" });
+      return;
     }
 
     //transaction:
