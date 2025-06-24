@@ -11,10 +11,6 @@ declare global {
   }
 }
 
-// interface AuthRequest extends Request {
-//   userId?: string;
-// }
-
 interface JwtPayload {
   userId: string;
 }

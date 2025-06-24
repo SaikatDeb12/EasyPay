@@ -11,6 +11,8 @@ const Transaction: React.FC = () => {
   const [amount, setAmount] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
+  setParams("id");
+  setParams("name");
   const id = params.get("id");
   const name = params.get("name");
 
@@ -55,12 +57,15 @@ const Transaction: React.FC = () => {
       );
       console.log(response.data.msg);
       navigate("/dashboard");
-    } catch (err) {
-      console.log("error: ", err.response.data.msg);
+    } catch (error) {
+      const err = error as AxiosError;
+      console.log(err.response?.data);
     }
   };
 
-  return (
+  return isLoading ? (
+    <p>Loading...</p>
+  ) : (
     <div className="h-screen w-full flex justify-center items-center bg-slate-300">
       <div className="w-90 space-y-4 bg-white rounded-lg h-max px-4 p-2 pb-10 ">
         <div className="flex flex-col justify-center items-center mb-8">

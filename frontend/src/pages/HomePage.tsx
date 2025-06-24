@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
@@ -31,8 +31,10 @@ const HomePage: React.FC = () => {
           // setMessage("Welcome Guest");
           setIsLoading(false);
         }
-      } catch (err) {
+      } catch (error) {
         localStorage.removeItem("token");
+        const err = error as AxiosError;
+        console.log(err.response?.data);
       } finally {
         setIsLoading(false);
       }

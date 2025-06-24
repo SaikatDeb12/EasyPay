@@ -5,7 +5,7 @@ import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 const SignUp: React.FC = () => {
@@ -30,8 +30,10 @@ const SignUp: React.FC = () => {
         if (res.data.msg == "welcome") {
           navigate("/landing");
         }
-      } catch (err) {
+      } catch (error) {
         localStorage.removeItem("token");
+        const err = error as AxiosError;
+        console.log(err.response?.data);
       } finally {
         setLoading(false);
       }
