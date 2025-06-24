@@ -7,6 +7,7 @@ import SubHeading from "../components/SubHeading";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import Loading from "../components/Loading";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ const SignIn: React.FC = () => {
     }
   };
   return loading ? (
-    <p>Loading...</p>
+    <Loading />
   ) : (
     <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
       <div className="rounded-lg bg-white w-90 p-2 px-4 pb-10 h-max flex flex-col justify-center items-center">

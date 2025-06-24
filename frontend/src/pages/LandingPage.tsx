@@ -8,6 +8,7 @@ import { TbCircleNumber1Filled } from "react-icons/tb";
 import { TbCircleNumber2Filled } from "react-icons/tb";
 import { TbCircleNumber3Filled } from "react-icons/tb";
 import { AiOutlineMobile, AiOutlineThunderbolt } from "react-icons/ai";
+import Loading from "../components/Loading";
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const LandingPage: React.FC = () => {
     checkAuth();
   }, [navigate]);
   return isLoading ? (
-    <p>Loading...</p>
+    <Loading />
   ) : (
     <div className="w-full h-screen">
       <div className="w-full z-10 sticky bg-white flex justify-between items-center h-fit border-gray-400 shadow-lg ">

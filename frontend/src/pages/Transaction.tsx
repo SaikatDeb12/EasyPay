@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import InputBox from "../components/InputBox";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
+import Loading from "../components/Loading";
 
 const Transaction: React.FC = () => {
   const params = new URLSearchParams(document.location.search);
@@ -62,7 +63,7 @@ const Transaction: React.FC = () => {
   };
 
   return isLoading ? (
-    <p>Loading...</p>
+    <Loading />
   ) : (
     <div className="h-screen w-full flex justify-center items-center bg-slate-300">
       <div className="w-90 space-y-4 bg-white rounded-lg h-max px-4 p-2 pb-10 ">

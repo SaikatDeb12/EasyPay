@@ -11,6 +11,7 @@ import {
   TbCircleNumber3Filled,
 } from "react-icons/tb";
 import { FaRegCopyright } from "react-icons/fa";
+import Loading from "../components/Loading";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const HomePage: React.FC = () => {
     checkAuth();
   }, [navigate]);
   return isLoading ? (
-    <p>Loading...</p>
+    <Loading />
   ) : (
     <div className="w-full h-screen">
       <div className="w-full z-10 sticky bg-white flex justify-between items-center h-fit border-gray-400 shadow-lg ">

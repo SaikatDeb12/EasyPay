@@ -4,6 +4,7 @@ import Profile from "../components/Profile";
 import InputBox from "../components/InputBox";
 import User from "../components/User";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 type UserType = {
   _id: string;
@@ -66,11 +67,14 @@ const Dashboard: React.FC = () => {
   }, [filter, navigate]);
 
   return loading ? (
-    <p>Loading...</p>
+    <Loading />
   ) : (
     <div className="w-full h-screen ">
       <div className="w-full flex justify-between items-center h-fit border-gray-400 shadow-lg ">
-        <div className="text-2xl text-blue-500 p-4 mx-2 font-bold">
+        <div
+          className="text-2xl text-blue-500 p-4 mx-2 font-bold cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           Easy Pay
         </div>
         <div className="flex m-2 items-center">
