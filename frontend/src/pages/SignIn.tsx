@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
             },
           }
         );
-        console.log(res.data.msg);
+        toast.success(res.data.msg);
         if (res.data.msg == "welcome") {
           navigate("/");
         }
@@ -66,12 +66,13 @@ const SignIn: React.FC = () => {
         value
       );
       const token = res.data.token;
-      console.log(res.data.msg);
       toast.success(res.data.msg);
       localStorage.setItem("token", token);
       navigate("/dashboard");
-    } catch (err) {
-      console.log("Error: ", err);
+    } catch (error) {
+      const err = error as AxiosError;
+      const data = err.response?.data as { msg: string };
+      toast.error(data.msg);
     }
   };
   return loading ? (

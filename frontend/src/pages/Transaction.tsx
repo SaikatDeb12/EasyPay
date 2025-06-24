@@ -6,6 +6,7 @@ import InputBox from "../components/InputBox";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import Loading from "../components/Loading";
+import toast from "react-hot-toast";
 
 const Transaction: React.FC = () => {
   const params = new URLSearchParams(document.location.search);
@@ -54,11 +55,12 @@ const Transaction: React.FC = () => {
           },
         }
       );
-      console.log(response.data.msg);
+      toast.success(response.data.msg);
       navigate("/dashboard");
     } catch (error) {
       const err = error as AxiosError;
-      console.log(err.response?.data);
+      const data = err.response?.data as { msg: string };
+      toast.error(data.msg);
     }
   };
 

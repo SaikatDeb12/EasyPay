@@ -27,7 +27,7 @@ const SignUp: React.FC = () => {
             },
           }
         );
-        console.log(res.data.msg);
+        toast.success(res.data.msg);
         if (res.data.msg == "welcome") {
           navigate("/");
         }
@@ -69,7 +69,6 @@ const SignUp: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      console.log(value);
       const res = await axios.post(
         (import.meta.env.VITE_BASE_URL as string) + "/api/v1/user/signup",
         value,
@@ -79,11 +78,12 @@ const SignUp: React.FC = () => {
           },
         }
       );
-      console.log(res.data.msg);
       toast.success(res.data.msg);
       navigate("/signin");
     } catch (error) {
-      console.log("error", error);
+      const err = error as AxiosError;
+      const data = err.response?.data as { msg: string };
+      toast.error(data.msg);
     }
   };
 

@@ -12,6 +12,7 @@ import {
 } from "react-icons/tb";
 import { FaRegCopyright } from "react-icons/fa";
 import Loading from "../components/Loading";
+import toast from "react-hot-toast";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -35,12 +36,14 @@ const HomePage: React.FC = () => {
         );
         if (res.data.msg == "welcome") {
           setIsValid(true);
+          setIsLoading(false);
         } else {
           localStorage.removeItem("token");
         }
       } catch (error) {
         const err = error as AxiosError;
-        console.log(err.response?.data);
+        const data = err.response?.data as { msg: string };
+        toast.error(data.msg);
       } finally {
         setIsLoading(false);
       }

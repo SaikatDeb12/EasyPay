@@ -17,6 +17,7 @@ function App() {
         <Route path={"/dashboard"} element={<Dashboard />} />
         <Route path={"/transfer"} element={<Transaction />} />
         <Route path={"/"} element={<HomePage />} />
+        <Route path={"/*"} element={<HomePage />} />
       </Routes>
     </Router>
   );
