@@ -1,18 +1,16 @@
 import type React from "react";
 import Heading from "../components/Heading";
 import Profile from "../components/Profile";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import InputBox from "../components/InputBox";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 
 const Transaction: React.FC = () => {
-  const [params, setParams] = useSearchParams();
+  const params = new URLSearchParams(document.location.search);
   const [amount, setAmount] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-  setParams("id");
-  setParams("name");
   const id = params.get("id");
   const name = params.get("name");
 
