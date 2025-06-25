@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const Transaction: React.FC = () => {
   const params = new URLSearchParams(document.location.search);
-  const [amount, setAmount] = useState<string>("");
+  const [amount, setAmount] = useState<number>(100);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const id = params.get("id");
@@ -36,7 +36,7 @@ const Transaction: React.FC = () => {
   }, [navigate]);
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(event.target.value);
+    setAmount(event.target.valueAsNumber);
   };
 
   const initiateTransfer = async () => {

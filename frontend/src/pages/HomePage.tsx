@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="bg-blue-100 z-0 h-150 flex justify-between items-center">
+      <div className="bg-blue-100 z-0 h-150 w-full md:flex md:justify-between md:items-center space-y-6 ">
         <div className="mx-10 space-y-3">
           <div className="space-x-3 text-black text-5xl font-bold">
             <span>Send & Receive Money</span>
@@ -128,7 +128,7 @@ const HomePage: React.FC = () => {
         </div>
       </div>
       <div className="h-150 w-full flex justify-center items-center">
-        <div className="flex flex-col items-center space-y-4">
+        <div className="md:flex md:flex-col md:items-center space-y-4">
           <Heading
             label="Everything you need for digital payments"
             color="text-black"

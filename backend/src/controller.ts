@@ -168,7 +168,7 @@ const getBalance = async (req: Request, res: Response) => {
 
 const transactionSchema = zod.object({
   to: zod.string().min(1),
-  amount: zod.string().min(1),
+  amount: zod.number().min(1).max(100000),
 });
 
 const handleTransfer = async (req: Request, res: Response) => {
@@ -186,7 +186,7 @@ const handleTransfer = async (req: Request, res: Response) => {
     const user = await AccountModel.findOne({ userId: req.userId }).session(
       session
     );
-    if (!user || (user.balance as number) < Number(amount)) {
+    if (!user || (user.balance as number) < amount) {
       await session.abortTransaction();
       res.status(400).json({ msg: "Insufficient balance" });
       return;
@@ -202,11 +202,11 @@ const handleTransfer = async (req: Request, res: Response) => {
     //transaction:
     await AccountModel.updateOne(
       { userId: req.userId },
-      { $inc: { balance: -Number(amount) } }
+      { $inc: { balance: amount * -1 } }
     ).session(session);
     await AccountModel.updateOne(
       { userId: to },
-      { $inc: { balance: Number(amount) } }
+      { $inc: { balance: amount } }
     ).session(session);
 
     await session.commitTransaction();
