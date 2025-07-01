@@ -1,11 +1,7 @@
 import express from "express";
-import {
-  displayUser,
-  handleSignIn,
-  handleSignUp,
-  handleUpdate,
-} from "../controller";
+import { displayUser, handleUpdate } from "../controller/user.controller";
 import authMiddleware from "../middleware";
+import { handleSignIn, handleSignUp } from "../controller/auth.controller";
 const userRouter = express.Router();
 userRouter.post("/signup", handleSignUp);
 userRouter.post("/signin", handleSignIn);
