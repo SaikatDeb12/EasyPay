@@ -52,7 +52,6 @@ const displayUser = async (req: Request, res: Response) => {
       ],
     };
     const users = await collection.find(query).toArray();
-    // res.status(200).json(users);
     res.status(200).json({
       users: users.map((user) => ({
         _id: user._id,

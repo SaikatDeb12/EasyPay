@@ -18,7 +18,7 @@ const getBalance = async (req: Request, res: Response) => {
 
 const transactionSchema = zod.object({
   to: zod.string().min(1),
-  amount: zod.number().min(1).max(100000),
+  amount: zod.number().min(1, "Min 1 and max 1,00,000").max(100000),
 });
 
 const handleTransfer = async (req: Request, res: Response) => {
@@ -28,7 +28,7 @@ const handleTransfer = async (req: Request, res: Response) => {
     const body = req.body;
     const { success, data, error } = transactionSchema.safeParse(body);
     if (!success) {
-      res.status(400).json({ msg: "Invalid input", error: error });
+      res.status(400).json({ msg: error.errors[0].message });
       return;
     }
 

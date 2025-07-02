@@ -1,18 +1,16 @@
 import { Request, Response } from "express";
-import { MongoClient } from "mongodb";
 import zod from "zod";
 import bcrypt from "bcrypt";
 import { AccountModel, UserModel } from "../db";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import mongoose, { startSession } from "mongoose";
 dotenv.config();
 
 const signUpSchema = zod.object({
   firstName: zod.string().min(1, "Required"),
   lastName: zod.string(),
-  email: zod.string().email("Invalid email"),
-  password: zod.string().min(6, "Must be atleast 6 characters"),
+  email: zod.string().email("Invalid Email"),
+  password: zod.string().min(6, "Password must be atleast 6 characters"),
   amount: zod.number().min(1, "Amount is required"),
 });
 
@@ -21,7 +19,7 @@ const handleSignUp = async (req: Request, res: Response) => {
     const body = req.body;
     const { success, data, error } = signUpSchema.safeParse(body);
     if (!success) {
-      res.status(400).json({ msg: "Incorrect input", error });
+      res.status(400).json({ msg: error.errors[0].message });
       return;
     }
 
@@ -58,8 +56,8 @@ const handleSignUp = async (req: Request, res: Response) => {
 };
 
 const signInSchema = zod.object({
-  email: zod.string().email("Invalid email"),
-  password: zod.string().min(6, "Must be atleast 6 characters"),
+  email: zod.string().email("Invalid Email"),
+  password: zod.string().min(6, "Password must be atleast 6 characters"),
 });
 
 const handleSignIn = async (req: Request, res: Response) => {
@@ -67,7 +65,8 @@ const handleSignIn = async (req: Request, res: Response) => {
     const body = req.body;
     const { success, data, error } = signInSchema.safeParse(body);
     if (!success) {
-      res.status(400).json({ msg: "Invalid credentials", error });
+      console.log(error.errors[0].message);
+      res.status(400).json({ msg: error.errors[0].message });
       return;
     }
 
