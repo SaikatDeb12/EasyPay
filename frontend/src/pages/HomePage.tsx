@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { href, Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 import { MdOutlineDoneOutline, MdOutlineSecurity } from "react-icons/md";
@@ -13,6 +13,9 @@ import {
 import { FaRegCopyright } from "react-icons/fa";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -60,10 +63,19 @@ const HomePage: React.FC = () => {
         </div>
         {isValid ? (
           <div className="flex items-center mr-10">
+            <div
+              className="text-sm mx-4 text-blue-500 w-20 cursor-pointer"
+              onClick={() => {
+                localStorage.removeItem("token");
+                window.location.reload();
+              }}
+            >
+              Logout
+            </div>
             <Button text="Dashboard" onClick={() => navigate("/dashboard")} />
           </div>
         ) : (
-          <div className="flex items-center m-2 ">
+          <div className="flex items-center mr-10 ">
             <div
               className="text-sm mx-4 text-blue-500 w-20 cursor-pointer"
               onClick={() => navigate("/signin")}
@@ -79,8 +91,12 @@ const HomePage: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="bg-blue-100 z-0 h-150 w-full md:flex md:justify-between md:items-center space-y-6 ">
-        <div className="mx-10 space-y-3">
+      <div className="bg-blue-100 w-full min-h-[80vh] flex flex-col-reverse md:flex-row justify-between items-center px-6 py-12 gap-6">
+        <div
+          className="mx-10 space-y-3"
+          data-aos="fade-right"
+          data-aos-duration="1000"
+        >
           <div className="space-x-3 text-black text-5xl font-bold">
             <span>Send & Receive Money</span>
             <span className="text-blue-500">Instantly</span>
@@ -121,14 +137,17 @@ const HomePage: React.FC = () => {
         </div>
         <div className="w-full">
           <img
-            className="h-70 w-100 m-auto rounded-lg shadow-2xl"
+            className="h-70 w-100 m-auto rounded-lg shadow-2xl shadow-black"
             src="/transfer.jpg"
             alt="cards"
           />
         </div>
       </div>
       <div className="h-150 w-full flex justify-center items-center">
-        <div className="md:flex md:flex-col md:items-center space-y-4">
+        <div
+          className="md:flex md:flex-col md:items-center space-y-4"
+          data-aos="fade-up"
+        >
           <Heading
             label="Everything you need for digital payments"
             color="text-black"
@@ -138,7 +157,11 @@ const HomePage: React.FC = () => {
             of the tool you need for seamless money management
           </p>
           <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
-            <div className="border-2 border-blue-50 px-4 py-3 rounded-sm">
+            <div
+              className="border-2 border-blue-50 px-4 py-3 rounded-sm"
+              data-aos="fade-down"
+              data-aos-duration="500"
+            >
               <div className="text-5xl flex justify-center text-blue-500">
                 <AiOutlineThunderbolt />
               </div>
@@ -149,7 +172,11 @@ const HomePage: React.FC = () => {
                 Send money to anyone in seconds. No waiting, no delays
               </p>
             </div>
-            <div className="border-2 border-blue-50 px-3 py-2 rounded-sm">
+            <div
+              className="border-2 border-blue-50 px-3 py-2 rounded-sm"
+              data-aos="fade-down"
+              data-aos-duration="500"
+            >
               <div className="text-5xl flex justify-center text-blue-500">
                 <MdOutlineSecurity />
               </div>
@@ -160,7 +187,11 @@ const HomePage: React.FC = () => {
                 Your money is protected with proper encryption
               </p>
             </div>
-            <div className="border-2 border-blue-50 px-3 py-2 rounded-sm">
+            <div
+              className="border-2 border-blue-50 px-3 py-2 rounded-sm"
+              data-aos="fade-down"
+              data-aos-duration="500"
+            >
               <div className="text-5xl flex justify-center text-blue-500">
                 <AiOutlineMobile />
               </div>
@@ -175,13 +206,20 @@ const HomePage: React.FC = () => {
         </div>
       </div>
       <div className="h-150 bg-gray-200 w-full flex justify-center items-center">
-        <div className="flex flex-col items-center space-y-4">
+        <div
+          className="flex flex-col items-center space-y-4"
+          data-aos="fade-up"
+        >
           <Heading label="How EasyPay Works" color="text-black" />
           <p className="text-gray-600 text-center w-150">
             Get started in minutes with our simple three-step process
           </p>
           <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
-            <div className="outline:none px-4 py-3 rounded-sm w-full">
+            <div
+              className="outline:none px-4 py-3 rounded-sm w-full"
+              data-aos="fade-down"
+              data-aos-duration="500"
+            >
               <div className="text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber1Filled />
               </div>
@@ -193,7 +231,11 @@ const HomePage: React.FC = () => {
                 minutes.
               </p>
             </div>
-            <div className="outline:none px-3 py-2 rounded-sm">
+            <div
+              className="outline:none px-3 py-2 rounded-sm"
+              data-aos="fade-down"
+              data-aos-duration="500"
+            >
               <div className="text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber2Filled />
               </div>
@@ -202,7 +244,11 @@ const HomePage: React.FC = () => {
                 Link your bank account card to add oney to your EasyPay wallet.
               </p>
             </div>
-            <div className="outline:none px-3 py-2 rounded-sm">
+            <div
+              className="outline:none px-3 py-2 rounded-sm"
+              data-aos="fade-down"
+              data-aos-duration="500"
+            >
               <div className="text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber3Filled />
               </div>
@@ -218,27 +264,47 @@ const HomePage: React.FC = () => {
       </div>
       <div className="h-fit bg-blue-600 w-full">
         <div className="text-white h-50 w-full flex justify-around ">
-          <div className="flex flex-col justify-center text-center">
+          <div
+            className="flex flex-col justify-center text-center"
+            data-aos="flip-up"
+            data-aos-duration="500"
+          >
             <Heading color="text-white" label="10M+" />
             <p className="text-sm">Transactions</p>
           </div>
-          <div className="flex flex-col justify-center text-center">
+          <div
+            className="flex flex-col justify-center text-center"
+            data-aos="flip-up"
+            data-aos-duration="500"
+          >
             <Heading color="text-white" label="500K+" />
             <p className="text-sm">Active Users</p>
           </div>
-          <div className="flex flex-col justify-center text-center">
+          <div
+            className="flex flex-col justify-center text-center"
+            data-aos="flip-up"
+            data-aos-duration="500"
+          >
             <Heading color="text-white" label="99.9%" />
             <p className="text-sm">Uptime</p>
           </div>
-          <div className="flex flex-col justify-center text-center">
+          <div
+            className="flex flex-col justify-center text-center"
+            data-aos="flip-up"
+            data-aos-duration="500"
+          >
             <Heading color="text-white" label="24/7" />
             <p className="text-sm">Support</p>
           </div>
         </div>
       </div>
       <div className="h-fit w-full flex justify-center items-center">
-        <div className="h-120 flex flex-col justify-center text-center space-y-3">
-          <Heading color="text-black" label="Read to get started?" />
+        <div
+          className="h-120 flex flex-col justify-center text-center space-y-3"
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+        >
+          <Heading color="text-black" label="Ready to get started?" />
           <p className="text-gray-400">
             Join thousand of users how trust EasyPay for their daily
             transactions
