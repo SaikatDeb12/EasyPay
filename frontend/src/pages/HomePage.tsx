@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { href, Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 import { MdOutlineDoneOutline, MdOutlineSecurity } from "react-icons/md";
@@ -56,15 +56,15 @@ const HomePage: React.FC = () => {
   return isLoading ? (
     <Loading />
   ) : (
-    <div className="w-full h-screen">
-      <div className="w-full z-10 sticky bg-white flex justify-between items-center h-fit border-gray-400 shadow-lg ">
-        <div className="text-2xl mx-4 p-4 font-bold text-blue-500">
+    <div className="w-full min-h-screen">
+      <div className="w-full z-10 sticky bg-white flex justify-between items-center h-fit border-gray-400 shadow-lg px-2 sm:px-4">
+        <div className="text-xl sm:text-2xl p-2 sm:p-4 font-bold text-blue-500">
           Easy Pay
         </div>
         {isValid ? (
-          <div className="flex items-center mr-10">
+          <div className="flex items-center mr-2 sm:mr-10">
             <div
-              className="text-sm mx-4 text-blue-500 w-20 cursor-pointer"
+              className="text-xs sm:text-sm mx-2 sm:mx-4 text-blue-500 w-16 sm:w-20 cursor-pointer hover:underline"
               onClick={() => {
                 localStorage.removeItem("token");
                 window.location.reload();
@@ -75,9 +75,9 @@ const HomePage: React.FC = () => {
             <Button text="Dashboard" onClick={() => navigate("/dashboard")} />
           </div>
         ) : (
-          <div className="flex items-center mr-10 ">
+          <div className="flex items-center mr-2 sm:mr-10">
             <div
-              className="text-sm mx-4 text-blue-500 w-20 cursor-pointer"
+              className="text-xs sm:text-sm mx-2 sm:mx-4 text-blue-500 w-16 sm:w-20 cursor-pointer hover:underline"
               onClick={() => navigate("/signin")}
             >
               Sign In
@@ -91,29 +91,30 @@ const HomePage: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="bg-blue-100 w-full min-h-[80vh] flex flex-col-reverse md:flex-row justify-between items-center px-6 py-12 gap-6">
+
+      <div className="bg-blue-100 w-full min-h-[80vh] flex flex-col-reverse md:flex-row justify-between items-center px-4 sm:px-6 py-8 sm:py-12 gap-6">
         <div
-          className="mx-10 space-y-3"
+          className="mx-4 sm:mx-10 space-y-3 w-full md:w-1/2"
           data-aos="fade-right"
           data-aos-duration="1000"
         >
-          <div className="space-x-3 text-black text-5xl font-bold">
+          <div className="space-y-2 sm:space-y-0 sm:space-x-3 text-black text-3xl sm:text-4xl md:text-5xl font-bold">
             <span>Send & Receive Money</span>
-            <span className="text-blue-500">Instantly</span>
+            <span className="text-blue-500 block sm:inline">Instantly</span>
           </div>
-          <div className="w-110 text-gray-700 space-y-3">
-            <p>
+          <div className="max-w-md text-gray-700 space-y-3">
+            <p className="text-sm sm:text-base">
               The fastest and most secure way to transfer money. Join to explore
               the true potential
             </p>
             <Button
-              text="Start Sending Money "
+              text="Start Sending Money"
               onClick={() => {
                 if (!isValid) navigate("/signin");
                 else navigate("/dashboard");
               }}
             />
-            <div className="flex text-sm space-x-5">
+            <div className="flex flex-wrap text-xs sm:text-sm gap-2 sm:gap-5">
               <div className="flex items-center space-x-1">
                 <div className="text-green-600">
                   <MdOutlineDoneOutline />
@@ -135,40 +136,41 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full md:w-1/2 flex justify-center">
           <img
-            className="h-70 w-100 m-auto rounded-lg shadow-2xl shadow-black"
+            className="h-auto max-h-60 sm:max-h-80 md:max-h-96 w-auto max-w-full rounded-lg shadow-2xl shadow-black"
             src="/transfer.jpg"
             alt="cards"
           />
         </div>
       </div>
-      <div className="h-150 w-full flex justify-center items-center">
+
+      <div className="py-10 sm:py-20 w-full flex justify-center items-center">
         <div
-          className="md:flex md:flex-col md:items-center space-y-4"
+          className="flex flex-col items-center space-y-4 px-4 sm:px-6"
           data-aos="fade-up"
         >
           <Heading
             label="Everything you need for digital payments"
             color="text-black"
           />
-          <p className="text-gray-600 text-center w-150">
+          <p className="text-gray-600 text-center max-w-lg text-sm sm:text-base">
             From instant transfers to secure transactions, EasyPay provides most
             of the tool you need for seamless money management
           </p>
-          <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
+          <div className="grid md:grid-cols-3 grid-cols-1 gap-4 sm:gap-6 max-w-5xl mt-6 sm:mt-10">
             <div
               className="border-2 border-blue-50 px-4 py-3 rounded-sm"
               data-aos="fade-down"
               data-aos-duration="500"
             >
-              <div className="text-5xl flex justify-center text-blue-500">
+              <div className="text-4xl sm:text-5xl flex justify-center text-blue-500">
                 <AiOutlineThunderbolt />
               </div>
-              <p className="text-md font-bold space-y-1 px-2  ">
+              <p className="text-sm sm:text-base font-bold px-2">
                 Instant Transfer
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500">
                 Send money to anyone in seconds. No waiting, no delays
               </p>
             </div>
@@ -177,13 +179,13 @@ const HomePage: React.FC = () => {
               data-aos="fade-down"
               data-aos-duration="500"
             >
-              <div className="text-5xl flex justify-center text-blue-500">
+              <div className="text-4xl sm:text-5xl flex justify-center text-blue-500">
                 <MdOutlineSecurity />
               </div>
-              <p className="text-md font-bold space-y-1 px-2 ">
+              <p className="text-sm sm:text-base font-bold px-2">
                 Bank-Level Security
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500">
                 Your money is protected with proper encryption
               </p>
             </div>
@@ -192,41 +194,42 @@ const HomePage: React.FC = () => {
               data-aos="fade-down"
               data-aos-duration="500"
             >
-              <div className="text-5xl flex justify-center text-blue-500">
+              <div className="text-4xl sm:text-5xl flex justify-center text-blue-500">
                 <AiOutlineMobile />
               </div>
-              <p className="text-md font-bold space-y-1 px-2 ">
+              <p className="text-sm sm:text-base font-bold px-2">
                 Interactive UI
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500">
                 Enjoy the smooth money transfer, just like our UI
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="h-150 bg-gray-200 w-full flex justify-center items-center">
+
+      <div className="py-10 sm:py-20 bg-gray-200 w-full flex justify-center items-center">
         <div
-          className="flex flex-col items-center space-y-4"
+          className="flex flex-col items-center space-y-4 px-4 sm:px-6"
           data-aos="fade-up"
         >
           <Heading label="How EasyPay Works" color="text-black" />
-          <p className="text-gray-600 text-center w-150">
+          <p className="text-gray-600 text-center max-w-lg text-sm sm:text-base">
             Get started in minutes with our simple three-step process
           </p>
-          <div className="grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 grid-rows-3 text-center gap-4 space-x-4 m-auto w-200 mt-10">
+          <div className="grid md:grid-cols-3 grid-cols-1 gap-4 sm:gap-6 max-w-5xl mt-6 sm:mt-10">
             <div
               className="outline:none px-4 py-3 rounded-sm w-full"
               data-aos="fade-down"
               data-aos-duration="500"
             >
-              <div className="text-5xl flex justify-center text-blue-600">
+              <div className="text-4xl sm:text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber1Filled />
               </div>
-              <p className="text-md font-bold space-y-1 px-2  ">
+              <p className="text-sm sm:text-base font-bold px-2">
                 Create Account
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500">
                 Sign up with your email and verify your identity in under 2
                 minutes.
               </p>
@@ -236,12 +239,12 @@ const HomePage: React.FC = () => {
               data-aos="fade-down"
               data-aos-duration="500"
             >
-              <div className="text-5xl flex justify-center text-blue-600">
+              <div className="text-4xl sm:text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber2Filled />
               </div>
-              <p className="text-md font-bold space-y-1 px-2 ">Add Money</p>
-              <p className="text-sm text-gray-500">
-                Link your bank account card to add oney to your EasyPay wallet.
+              <p className="text-sm sm:text-base font-bold px-2">Add Money</p>
+              <p className="text-xs sm:text-sm text-gray-500">
+                Link your bank account card to add money to your EasyPay wallet.
               </p>
             </div>
             <div
@@ -249,28 +252,29 @@ const HomePage: React.FC = () => {
               data-aos="fade-down"
               data-aos-duration="500"
             >
-              <div className="text-5xl flex justify-center text-blue-600">
+              <div className="text-4xl sm:text-5xl flex justify-center text-blue-600">
                 <TbCircleNumber3Filled />
               </div>
-              <p className="text-md font-bold space-y-1 px-2 ">
+              <p className="text-sm sm:text-base font-bold px-2">
                 Send & Receive
               </p>
-              <p className="text-sm text-gray-500">
-                Start sending oney to friends, family, or business instantly.
+              <p className="text-xs sm:text-sm text-gray-500">
+                Start sending money to friends, family, or business instantly.
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="h-fit bg-blue-600 w-full">
-        <div className="text-white h-50 w-full flex justify-around ">
+
+      <div className="h-fit py-10 sm:py-16 bg-blue-600 w-full">
+        <div className="text-white w-full flex flex-col sm:flex-row justify-around items-center gap-6 sm:gap-0 px-4">
           <div
             className="flex flex-col justify-center text-center"
             data-aos="flip-up"
             data-aos-duration="500"
           >
             <Heading color="text-white" label="10M+" />
-            <p className="text-sm">Transactions</p>
+            <p className="text-xs sm:text-sm">Transactions</p>
           </div>
           <div
             className="flex flex-col justify-center text-center"
@@ -278,7 +282,7 @@ const HomePage: React.FC = () => {
             data-aos-duration="500"
           >
             <Heading color="text-white" label="500K+" />
-            <p className="text-sm">Active Users</p>
+            <p className="text-xs sm:text-sm">Active Users</p>
           </div>
           <div
             className="flex flex-col justify-center text-center"
@@ -286,7 +290,7 @@ const HomePage: React.FC = () => {
             data-aos-duration="500"
           >
             <Heading color="text-white" label="99.9%" />
-            <p className="text-sm">Uptime</p>
+            <p className="text-xs sm:text-sm">Uptime</p>
           </div>
           <div
             className="flex flex-col justify-center text-center"
@@ -294,19 +298,20 @@ const HomePage: React.FC = () => {
             data-aos-duration="500"
           >
             <Heading color="text-white" label="24/7" />
-            <p className="text-sm">Support</p>
+            <p className="text-xs sm:text-sm">Support</p>
           </div>
         </div>
       </div>
-      <div className="h-fit w-full flex justify-center items-center">
+
+      <div className="py-10 sm:py-20 w-full flex justify-center items-center px-4">
         <div
-          className="h-120 flex flex-col justify-center text-center space-y-3"
+          className="flex flex-col justify-center text-center space-y-3 max-w-md"
           data-aos="zoom-in"
           data-aos-duration="1000"
         >
           <Heading color="text-black" label="Ready to get started?" />
-          <p className="text-gray-400">
-            Join thousand of users how trust EasyPay for their daily
+          <p className="text-gray-400 text-sm sm:text-base">
+            Join thousands of users who trust EasyPay for their daily
             transactions
           </p>
           <div className="mx-auto">
@@ -320,12 +325,13 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-gray-100 border  flex justify-between items-center h-fit border-gray-200">
-        <div className="text-2xl w-[40%] mx-4 p-4 font-bold text-blue-500">
+
+      <div className="w-full bg-gray-100 border flex flex-col sm:flex-row justify-between items-center h-fit border-gray-200 px-4 py-4">
+        <div className="text-xl sm:text-2xl font-bold text-blue-500 mb-2 sm:mb-0">
           Easy Pay
         </div>
-        <div className="w-[60%] flex justify-evenly text-xs">
-          <div className="flex items-center space-x-1 font-normal text-xs">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-xs">
+          <div className="flex items-center space-x-1 font-normal">
             <FaRegCopyright />
             <p>2025 EasyPay. All rights reserved.</p>
           </div>
