@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
+import Button from "../components/Button";
 
 const Transaction: React.FC = () => {
   const params = new URLSearchParams(document.location.search);
@@ -83,13 +84,12 @@ const Transaction: React.FC = () => {
             placeholder="Enter amount"
             type="number"
           />
-          <button
+          <Button
+            bgColor="bg-green-500"
+            textColor="text-white"
             onClick={initiateTransfer}
-            type="submit"
-            className="w-full bg-black hover:bg-green-500 transition delay-50 text-white rounded-lg px-3 py-1 shadow-md hover:shadow-lg ease-in-out font-semibold text-center mt-6 cursor-pointer"
-          >
-            Initial Transfer
-          </button>
+            text="Initial Transfer"
+          />
         </div>
       </div>
     </div>

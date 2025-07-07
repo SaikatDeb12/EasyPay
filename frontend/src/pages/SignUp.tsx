@@ -90,13 +90,13 @@ const SignUp: React.FC = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
-      <div className="rounded-lg bg-white w-90 p-2 h-max px-4 pb-10 flex flex-col justify-center items-center">
-        <div className="text-center">
+    <div className="bg-slate-300 min-h-screen flex justify-center items-center p-4">
+      <div className="rounded-lg bg-white w-full max-w-md p-6 flex flex-col justify-center items-center">
+        <div className="text-center w-full">
           <Heading color="text-black" label={"Sign Up"} />
           <SubHeading />
         </div>
-        <form className="items-start space-y-6 mt-4" onSubmit={handleSubmit}>
+        <form className="w-full space-y-4 mt-4" onSubmit={handleSubmit}>
           <InputBox
             name={"firstName"}
             label="First Name"
@@ -132,7 +132,7 @@ const SignUp: React.FC = () => {
             type="number"
             onChange={handleChange}
           />
-          <Button text="Sign Up" />
+          <Button bgColor="bg-blue-500" textColor="text-white" text="Sign Up" />
         </form>
         <Footer
           msg="Already have an account? "

@@ -72,7 +72,12 @@ const HomePage: React.FC = () => {
             >
               Logout
             </div>
-            <Button text="Dashboard" onClick={() => navigate("/dashboard")} />
+            <Button
+              bgColor="bg-blue-500"
+              textColor="text-white"
+              text="Dashboard"
+              onClick={() => navigate("/dashboard")}
+            />
           </div>
         ) : (
           <div className="flex items-center mr-2 sm:mr-10">
@@ -83,6 +88,8 @@ const HomePage: React.FC = () => {
               Sign In
             </div>
             <Button
+              bgColor="bg-blue-500"
+              textColor="text-white"
               text="Get Started"
               onClick={() => {
                 if (!isValid) navigate("/signup");
@@ -108,6 +115,8 @@ const HomePage: React.FC = () => {
               the true potential
             </p>
             <Button
+              bgColor="bg-blue-500"
+              textColor="text-white"
               text="Start Sending Money"
               onClick={() => {
                 if (!isValid) navigate("/signin");
@@ -136,7 +145,11 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-full md:w-1/2 flex justify-center">
+        <div
+          className="w-full md:w-1/2 flex justify-center"
+          data-aos="fade-left"
+          data-aos-duration="500"
+        >
           <img
             className="h-auto max-h-60 sm:max-h-80 md:max-h-96 w-auto max-w-full rounded-lg shadow-2xl shadow-black"
             src="/transfer.jpg"
@@ -316,6 +329,8 @@ const HomePage: React.FC = () => {
           </p>
           <div className="mx-auto">
             <Button
+              bgColor="bg-blue-500"
+              textColor="text-white"
               text="Get Started"
               onClick={() => {
                 if (!isValid) navigate("/signin");

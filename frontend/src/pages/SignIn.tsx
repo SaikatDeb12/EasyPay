@@ -78,14 +78,14 @@ const SignIn: React.FC = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="bg-slate-300 w-full h-screen flex justify-center items-center">
-      <div className="rounded-lg bg-white w-90 p-2 px-4 pb-10 h-max flex flex-col justify-center items-center">
-        <div className="text-center">
+    <div className="bg-slate-300 min-h-screen flex justify-center items-center p-4">
+      <div className="rounded-lg bg-white max-w-md p-6 flex flex-col justify-center items-center">
+        <div className="text-center w-full">
           <Heading color="text-black" label={"Sign In"} />
           <SubHeading />
         </div>
         <form
-          className="items-start space-y-6 mt-4"
+          className="w-full space-y-4 mt-4"
           onSubmit={(event) => handleSubmit(event)}
         >
           <InputBox
@@ -102,7 +102,7 @@ const SignIn: React.FC = () => {
             type="password"
             onChange={handleChange}
           />
-          <Button text="Sign In" />
+          <Button bgColor="bg-blue-500" textColor="text-white" text="Sign In" />
         </form>
         <Footer
           msg="Don't have an account? "

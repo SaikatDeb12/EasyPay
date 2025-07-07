@@ -25,7 +25,12 @@ const User: React.FC<PropType> = ({ details }) => {
         <p className="text-md mx-8">{`${details.firstName} ${details.lastName}`}</p>
       </div>
       <div>
-        <Button text="Send Money" onClick={handleSendMoneyButton} />
+        <Button
+          bgColor="bg-blue-500"
+          textColor="text-white"
+          text="Send Money"
+          onClick={handleSendMoneyButton}
+        />
       </div>
     </div>
   );
