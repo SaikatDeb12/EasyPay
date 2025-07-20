@@ -1,7 +1,7 @@
-import express, { RequestHandler } from "express";
+import express from "express";
 import {
-  getBalance,
-  handleTransfer,
+    getBalance,
+    handleTransfer,
 } from "../controller/transaction.controller";
 import authMiddleware from "../middleware";
 const accountRouter = express.Router();
