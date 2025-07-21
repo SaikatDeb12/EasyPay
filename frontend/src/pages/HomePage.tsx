@@ -157,7 +157,7 @@ const HomePage: React.FC = () => {
                         src="/transfer2.jpg"
                         alt="cards"
                     />
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-b from-transparent to-blue-100/100 pointer-events-none"></div>
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-b from-transparent to-blue-100/100 md:to-blue-100/50 pointer-events-none"></div>
                 </div>
             </div>
 
@@ -179,7 +179,7 @@ const HomePage: React.FC = () => {
                         <div
                             className="border-2 text-center border-blue-50 px-4 py-3 rounded-sm"
                             data-aos="fade-down"
-                            data-aos-duration="500"
+                            data-aos-duration="1000"
                         >
                             <div className="text-4xl sm:text-5xl flex justify-center text-blue-500">
                                 <AiOutlineThunderbolt />
@@ -195,7 +195,7 @@ const HomePage: React.FC = () => {
                         <div
                             className="border-2 border-blue-50 px-3 py-2 rounded-sm"
                             data-aos="fade-down"
-                            data-aos-duration="500"
+                            data-aos-duration="2000"
                         >
                             <div className="text-4xl sm:text-5xl flex justify-center text-blue-500">
                                 <MdOutlineSecurity />
@@ -210,7 +210,7 @@ const HomePage: React.FC = () => {
                         <div
                             className="border-2 border-blue-50 px-3 py-2 rounded-sm"
                             data-aos="fade-down"
-                            data-aos-duration="500"
+                            data-aos-duration="3000"
                         >
                             <div className="text-4xl sm:text-5xl flex justify-center text-blue-500">
                                 <AiOutlineMobile />
@@ -239,9 +239,9 @@ const HomePage: React.FC = () => {
                     </p>
                     <div className="text-center grid md:grid-cols-3 grid-cols-1 gap-4 sm:gap-6 max-w-5xl mt-6 sm:mt-10">
                         <div
-                            className="outline:none px-4 py-3 rounded-sm w-full"
+                            className="outline:none px-4 py-3 rounded-sm "
                             data-aos="fade-down"
-                            data-aos-duration="500"
+                            data-aos-duration="1000"
                         >
                             <div className="text-4xl sm:text-5xl flex justify-center text-blue-600">
                                 <TbCircleNumber1Filled />
@@ -257,7 +257,7 @@ const HomePage: React.FC = () => {
                         <div
                             className="outline:none px-3 py-2 rounded-sm"
                             data-aos="fade-down"
-                            data-aos-duration="500"
+                            data-aos-duration="2000"
                         >
                             <div className="text-4xl sm:text-5xl flex justify-center text-blue-600">
                                 <TbCircleNumber2Filled />
@@ -273,7 +273,7 @@ const HomePage: React.FC = () => {
                         <div
                             className="outline:none px-3 py-2 rounded-sm"
                             data-aos="fade-down"
-                            data-aos-duration="1000"
+                            data-aos-duration="3000"
                         >
                             <div className="text-4xl sm:text-5xl flex justify-center text-blue-600">
                                 <TbCircleNumber3Filled />
